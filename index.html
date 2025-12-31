@@ -4,11 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MNR TUNNEL PRO - Fast & Secure Free VPN</title>
+  
+  <meta name="description" content="MNR Tunnel Pro: أسرع وأكثر VPN آمن ومجاني للأندرويد. وصول غير محدود للإنترنت مع سياسة عدم الاحتفاظ بالسجلات.">
+  <meta name="keywords" content="VPN مجاني, MNR Tunnel Pro, أندرويد VPN, VPN سريع, بروكسي مجاني, Unlimited VPN">
+  <meta name="author" content="MOUNIR_EL">
+  <meta property="og:title" content="MNR TUNNEL PRO - Free & Secure VPN">
+  <meta property="og:description" content="وصول غير محدود للإنترنت مع أمان متقدم. حمل التطبيق مجاناً الآن.">
+  <meta property="og:image" content="icon.png"> <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
     body {
       margin: 0;
-      font-family: 'Times New Roman', serif;
-      background: linear-gradient(to bottom, #8e44ad, #9b59b6);
+      /* تم التعديل: استخدام خط Roboto */
+      font-family: 'Roboto', sans-serif; 
+      /* الخلفية: تدرج من الأزرق (أعلى) إلى الأخضر الداكن (أسفل) */
+      background: linear-gradient(to bottom, #1c7ed6, #0d6f64); 
       color: white;
       text-align: center;
       line-height: 1.6;
@@ -30,12 +42,13 @@
       border: 2px solid rgba(255, 255, 255, 0.3);
     }
     .download-card {
+      /* تطبيق تأثير ضبابي خفيف */
       background: rgba(255, 255, 255, 0.1);
       border-radius: 15px;
       padding: 20px;
       margin: 30px auto;
       max-width: 400px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4); /* ظل أقوى قليلاً */
     }
     .download-card h2 {
       font-size: 22px;
@@ -46,10 +59,42 @@
       font-size: 16px;
       margin-bottom: 20px;
     }
+
+    /* **أنماط شبكة الإحصائيات الجديدة** */
+    .stats-grid {
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+      margin: 20px 0 30px 0;
+      padding: 15px 0;
+      background: rgba(0, 0, 0, 0.15);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .stats-grid div {
+      flex: 1;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .stats-grid div:last-child {
+      border-right: none;
+    }
+    .stats-grid h3 {
+      font-size: 26px;
+      font-weight: bold;
+      color: #f7b733; /* لون النيون الذهبي */
+      margin: 0 0 5px 0;
+      text-shadow: 0 0 5px rgba(247, 183, 51, 0.5);
+    }
+    .stats-grid p {
+      font-size: 13px;
+      color: #eee;
+      margin: 0;
+    }
+    
     .version-info {
       display: flex;
       justify-content: space-between;
-      margin: 20px 0;
+      margin: 20px 0 0 0; /* تم تعديل الهامش ليناسب Stats Grid */
       padding: 12px 15px;
       background: rgba(255, 255, 255, 0.15);
       border-radius: 10px;
@@ -71,6 +116,7 @@
       font-weight: bold;
       font-size: 15px;
     }
+    
     /* App Screenshots Section */
     .screenshots {
       margin-top: 50px;
@@ -78,11 +124,13 @@
     }
 
     .screenshots h2 {
-      color: #3a8ef6;
+      /* تم التعديل: لون يتناسب مع الأزرق الداكن للخلفية */
+      color: #0b4f8d; 
       font-size: 24px;
       margin-bottom: 25px;
       font-family: 'Serif';
       font-weight: bold;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
     }
 
     .screenshot-gallery {
@@ -118,9 +166,17 @@
       .screenshot-gallery img {
         width: 180px;
       }
-      .version-info {
+      .version-info, .stats-grid { /* لتنسيق شبكة الإحصائيات في الموبايل */
         flex-direction: column;
         gap: 10px;
+      }
+      .stats-grid div {
+        border-right: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 10px;
+      }
+      .stats-grid div:last-child {
+        border-bottom: none;
       }
     }
     .btn {
@@ -134,32 +190,32 @@
       transition: background 0.3s, transform 0.2s;
       margin: 10px;
       font-weight: bold;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
     .btn:hover {
       transform: scale(1.05);
     }
+    
+    /* زر تنزيل بتأثير نيون/ظل خفيف لجذب العين */
     .download-btn { 
-      background-color: #25D366; 
-    } /* Green Download Button */
+      background-color: #f7b733; 
+      box-shadow: 0 0 15px rgba(247, 183, 51, 0.7); 
+    } 
     .download-btn:hover { 
-      background-color: #1ebc57; 
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+      background-color: #d8a02d; 
+      box-shadow: 0 6px 20px rgba(247, 183, 51, 1);
     }
-    .telegram-btn { 
-      background-color: #0088cc; 
+    
+    /* تأثير زجاجي خفيف للأزرار الاجتماعية */
+    .telegram-btn, .whatsapp-btn {
+      background: rgba(255, 255, 255, 0.1); 
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(5px); 
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
-    .telegram-btn:hover { 
-      background-color: #0077b6; 
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    .telegram-btn:hover, .whatsapp-btn:hover { 
+      background: rgba(255, 255, 255, 0.2); 
     }
-    .whatsapp-btn { 
-      background-color: #128C7E; 
-    }
-    .whatsapp-btn:hover { 
-      background-color: #0d6f64; 
-      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-    }
+    
     .social-buttons {
       display: flex;
       justify-content: center;
@@ -172,11 +228,17 @@
       max-width: 800px;
       margin: 0 auto;
     }
-    h2 {
-      font-size: 26px;
+
+    /* تمييز خفيف أسفل العنوان (Header Emphasis) */
+    section h2 {
+      font-size: 28px;
       font-weight: bold;
-      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid rgba(247, 183, 51, 0.5); 
+      display: inline-block;
+      margin-bottom: 25px;
     }
+    
     ul {
       text-align: left;
       max-width: 600px;
@@ -187,10 +249,69 @@
     li {
       padding: 8px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex; /* لترتيب الأيقونة والنص */
+      align-items: center;
+      gap: 10px; /* المسافة بين الأيقونة والنص */
+      
+      /* إضافة حركة خفيفة عند التمرير (Hover Effect) */
+      opacity: 0.9;
+      transition: opacity 0.3s ease, background-color 0.3s ease;
+    }
+    li:hover {
+      opacity: 1;
+      background-color: rgba(255, 255, 255, 0.05); /* إضاءة خفيفة */
+      border-radius: 5px;
     }
     li::before {
-      content: "⭐ ";
+      /* تم التعديل: حذف النجمة الأصلية للاعتماد على الأيقونات */
+      content: ""; 
     }
+    li i {
+        color: #f7b733; /* لون الأيقونات الذهبي/البرتقالي */
+        font-size: 1.1em;
+    }
+    
+    /* أنماط قسم الشهادات */
+    .testimonial-card {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 15px;
+        border-radius: 8px;
+        margin: 15px 0;
+        text-align: left;
+        border-left: 5px solid #f7b733; /* شريط جانبي ذهبي */
+        box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    .testimonial-card p {
+        font-style: italic;
+        margin: 0 0 10px 0;
+        font-size: 15px;
+    }
+    .testimonial-card footer {
+        font-size: 13px;
+        font-weight: bold;
+        color: #ddd;
+    }
+    .testimonials-container {
+        display: flex;
+        flex-direction: column; /* جعلها عمودية في التصميم الحالي */
+        gap: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    @media (min-width: 700px) {
+        .testimonials-container {
+            flex-direction: row; 
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+        }
+        .testimonial-card {
+            flex: 1 1 30%; 
+            margin: 0;
+        }
+    }
+
+
     footer {
       background: rgba(0,0,0,0.3);
       padding: 20px;
@@ -198,6 +319,40 @@
       color: #ddd;
       margin-top: 30px;
     }
+    /* أنماط رابط الفوتر */
+    footer a {
+        color: #f7b733; /* لون مميز للرابط */
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+    footer a:hover {
+        color: #fff;
+    }
+
+    /* أنماط زر العودة إلى الأعلى */
+    #scrollTopBtn {
+      display: none; /* مخفي افتراضياً */
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 99;
+      border: none;
+      outline: none;
+      background-color: #f7b733;
+      color: white;
+      cursor: pointer;
+      padding: 10px 15px;
+      border-radius: 50%;
+      font-size: 18px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+      transition: background-color 0.3s;
+    }
+    #scrollTopBtn:hover {
+      background-color: #d8a02d;
+    }
+
+
     @media (max-width: 600px) {
       .social-buttons { flex-direction: column; }
       .btn { width: 80%; }
@@ -215,8 +370,17 @@
   <div class="download-card">
     <h2>Download MNR Tunnel Pro</h2>
     <p>Get the latest version of MNR Tunnel Pro for Android and enjoy secure, fast, and unlimited browsing.</p>
-    
-    <!-- Version and Last Updated Info -->
+
+    <div class="stats-grid">
+        <div>
+            <h3>+100K</h3>
+            <p>Download</p>
+        </div>
+        <div>
+            <h3>4.4 ⭐</h3>
+            <p>User Rating</p>
+        </div>
+    </div>
     <div class="version-info">
       <span>
         <strong>Application Version</strong>
@@ -224,14 +388,13 @@
       </span>
       <span>
         <strong>Last Updated</strong>
-        <span class="value">26-December-2025</span>
+        <span class="value">06 dec 2025</span> 
       </span>
     </div>
     
     <a href="https://play.google.com/store/apps/details?id=com.mnrtunnel.udp" class="btn download-btn" target="_blank">Download Now</a>
   </div>
 
-  <!-- App Screenshots Section -->
   <div class="screenshots">
     <h2>App Preview</h2>
     <div class="screenshot-gallery">
@@ -244,23 +407,41 @@
   <section>
     <h2>Why Choose MNR Tunnel Pro?</h2>
     <ul>
-      <li>100% Free VPN — No hidden costs.</li>
-      <li>Unlimited data and bandwidth.</li>
-      <li>Military-grade AES-256 encryption.</li>
-      <li>No logs policy for maximum privacy.</li>
-      <li>Works on all Android versions.</li>
+      <li><i class="fas fa-hand-holding-usd"></i> 100% Free VPN — No hidden costs.</li>
+      <li><i class="fas fa-infinity"></i> Unlimited data and bandwidth.</li>
+      <li><i class="fas fa-lock"></i> Military-grade AES-256 encryption.</li>
+      <li><i class="fas fa-user-shield"></i> No logs policy for maximum privacy.</li>
+      <li><i class="fas fa-mobile-alt"></i> Works on all Android versions.</li>
     </ul>
   </section>
 
   <section>
     <h2>Advanced Features</h2>
     <ul>
-      <li>Fast and reliable global servers.</li>
-      <li>Auto-connect and Kill Switch.</li>
-      <li>DNS leak protection.</li>
-      <li>Unblock websites, apps, and streaming platforms.</li>
-      <li>Secure Wi-Fi connection in public places.</li>
+      <li><i class="fas fa-globe"></i> Fast and reliable global servers.</li>
+      <li><i class="fas fa-toggle-on"></i> Auto-connect and Kill Switch.</li>
+      <li><i class="fas fa-server"></i> DNS leak protection.</li>
+      <li><i class="fas fa-unlock-alt"></i> Unblock websites, apps, and streaming platforms.</li>
+      <li><i class="fas fa-wifi"></i> Secure Wi-Fi connection in public places.</li>
     </ul>
+  </section>
+  
+  <section class="testimonials">
+    <h2>ماذا يقول المستخدمون؟</h2>
+    <div class="testimonials-container">
+        <div class="testimonial-card">
+            <p>"افضل و اسرع تطبيق جربته لتحويل نجمة.6 الى نجمة 3 ، و الجميل انه يدعم الالعاب ايضا"</p>
+            <footer>انور الم.. (المغرب)</footer>
+        </div>
+        <div class="testimonial-card">
+            <p>"تطبيق ممتاز وسهل الاستعمال ، فيه كل ثغرات مصر ، شكرا لكم  ، تستحقون 100 نجمة"</p>
+            <footer>— فاطمة س. (مصر)</footer>
+        </div>
+        <div class="testimonial-card">
+            <p>"تطبيق متكامل انصحكم به ، شكرا لمطوري التطبيق</p>
+            <footer>— يوسف ع. (السعودية)</footer>
+        </div>
+    </div>
   </section>
 
   <section>
@@ -271,11 +452,29 @@
       <a href="https://chat.whatsapp.com/KYnYvIHdHB21F9AIlmfXNn" target="_blank" class="btn whatsapp-btn">Join WhatsApp</a>
     </div>
   </section>
+  
+  <button id="scrollTopBtn" title="Go to top"><i class="fas fa-arrow-up"></i></button>
 
   <footer>
     <p>© 2026 MNR Tunnel Pro . All rights reserved.</p>
-    <p>Best Free VPN App for Android — Powered by  MOUNIR_EL</p>
+    <p>Best Free VPN App for Android — Powered by <a href="https://t.me/mounir_el" target="_blank">MOUNIR_EL</a></p>
   </footer>
+  
+  <script>
+    let mybutton = document.getElementById("scrollTopBtn");
+    window.onscroll = function() {scrollFunction()};
+    function scrollFunction() {
+      if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        mybutton.style.display = "block";
+      } else {
+        mybutton.style.display = "none";
+      }
+    }
+    mybutton.addEventListener("click", function() {
+      document.body.scrollTop = 0; // For Safari
+      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
+  </script>
 
 </body>
 </html>
