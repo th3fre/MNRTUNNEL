@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم Fahed TV</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background: #991b1b;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #7f1d1d;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #ef4444;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #991b1b;
+            box-shadow: 0 0 0 3px rgba(153, 27, 27, 0.1);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: none;
+            background: #f3f4f6;
+            color: #6b7280;
+            border-radius: 12px;
+            margin: 0 5px 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            background: #991b1b;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .item-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .item-card {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .item-card.inactive {
+            opacity: 0.6;
+            background: #f3f4f6;
+        }
+
+        .toggle {
+            width: 60px;
+            height: 30px;
+            background: #e5e7eb;
+            border-radius: 15px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle.active {
+            background: #10b981;
+        }
+
+        .toggle-circle {
+            width: 26px;
+            height: 26px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .toggle.active .toggle-circle {
+            transform: translateX(30px);
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-inactive {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+        }
+
+        .success-message {
+            background: #d1fae5;
+            color: #065f46;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .error-message {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .firebase-setup {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #f59e0b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- تنبيه إعداد Firebase -->
+        <div class="firebase-setup">
+            <h3 class="text-lg font-bold mb-2">
+                <i class="fas fa-exclamation-triangle ml-2"></i>
+                تنبيه: يجب إعداد Firebase
+            </h3>
+            <p class="text-sm">
+                يجب عليك إضافة إعدادات Firebase الخاصة بك في نهاية الصفحة. اطلع على التعليمات أسفل الكود.
+            </p>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">
+                <i class="fas fa-tv text-red-600 ml-3"></i>
+                لوحة تحكم Fahed TV
+            </h1>
+            <p class="text-gray-600">إدارة شاملة لمحتوى التطبيق</p>
+        </div>
+
+        <!-- رسائل النجاح والخطأ -->
+        <div id="successMessage" class="success-message">
+            <i class="fas fa-check-circle ml-2"></i>
+            <span id="successText">تم الحفظ بنجاح!</span>
+        </div>
+
+        <div id="errorMessage" class="error-message">
+            <i class="fas fa-exclamation-circle ml-2"></i>
+            <span id="errorText">حدث خطأ!</span>
+        </div>
+
+        <!-- التبويبات -->
+        <div class="card">
+            <div class="mb-6">
+                <button class="tab-button active" onclick="showTab('categories')">الفئات والأقسام</button>
+                <button class="tab-button" onclick="showTab('events')">الأحداث المباشرة</button>
+                <button class="tab-button" onclick="showTab('settings')">الإعدادات العامة</button>
+            </div>
+
+            <!-- تبويب الفئات -->
+            <div id="categoriesTab" class="tab-content active">
+                <div class="grid-2">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">إضافة فئة جديدة</h3>
+                        <input type="text" id="categoryName" placeholder="اسم الفئة" class="input-field">
+                        <select id="categoryType" class="input-field">
+                            <option value="movies">أفلام ومسلسلات</option>
+                            <option value="channels">قنوات</option>
+                            <option value="news">أخبار</option>
+                        </select>
+                        <button class="btn btn-primary w-full" onclick="addCategory()">
+                            <i class="fas fa-plus ml-2"></i>إضافة فئة
+                        </button>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">الفئات الموجودة</h3>
+                        <div id="categoriesList" class="item-list">
+                            <div class="loading">جاري التحميل...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تبويب الأحداث -->
+            <div id="eventsTab" class="tab-content">
+                <div class="grid-2">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">إضافة حدث مباشر</h3>
+                        <input type="text" id="eventTeam1" placeholder="الفريق الأول" class="input-field">
+                        <input type="text" id="eventTeam1Code" placeholder="رمز الفريق الأول (مثال: CHE)" class="input-field">
+                        <input type="text" id="eventTeam2" placeholder="الفريق الثاني" class="input-field">
+                        <input type="text" id="eventTeam2Code" placeholder="رمز الفريق الثاني (مثال: PSG)" class="input-field">
+                        <input type="text" id="eventTournament" placeholder="البطولة" class="input-field">
+                        <input type="text" id="eventStatus" placeholder="حالة المباراة" class="input-field">
+                        <input type="text" id="eventCommentator" placeholder="المعلق" class="input-field">
+                        <input type="text" id="eventChannel" placeholder="القناة" class="input-field">
+                        <input type="url" id="eventUrl" placeholder="رابط المشاهدة" class="input-field">
+                        <button class="btn btn-primary w-full" onclick="addEvent()">
+                            <i class="fas fa-plus ml-2"></i>إضافة حدث
+                        </button>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">الأحداث المباشرة</h3>
+                        <div id="eventsList" class="item-list">
+                            <div class="loading">جاري التحميل...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- تبويب الإعدادات -->
+            <div id="settingsTab" class="tab-content">
+                <h3 class="text-2xl font-bold mb-4">إعدادات التطبيق</h3>
+                <div class="grid-3">
+                    <button class="btn btn-success" onclick="exportData()">
+                        <i class="fas fa-download ml-2"></i>تصدير البيانات
+                    </button>
+                    <button class="btn btn-danger" onclick="showConfirmDialog('هل أنت متأكد من مسح جميع البيانات؟ هذا الإجراء لا يمكن التراجع عنه!', clearAllData)">
+                        <i class="fas fa-trash ml-2"></i>مسح جميع البيانات
+                    </button>
+                    <button class="btn btn-primary" onclick="loadSampleData()">
+                        <i class="fas fa-database ml-2"></i>تحميل بيانات تجريبية
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal لإدارة العناصر -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 id="modalTitle" class="text-2xl font-bold">إدارة العناصر</h3>
+                <button onclick="closeModal()" class="btn btn-danger">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div id="modalContent">
+                <!-- المحتوى سيتم إضافته ديناميكياً -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getDatabase, ref, set, onValue, push, remove } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+        /*
+        ============================================
+        📱 تعليمات إعداد Firebase:
+        ============================================
+        
+        1️⃣ اذهب إلى: https://console.firebase.google.com
+        
+        2️⃣ أنشئ مشروع جديد:
+           - اضغط على "Create a project"
+           - اختر اسم للمشروع
+           - فعل أو عطل Google Analytics (اختياري)
+        
+        3️⃣ أنشئ Realtime Database:
+           - في الشريط الجانبي، اختر "Realtime Database"
+           - اضغط "Create Database"
+           - اختر الموقع الجغرافي (أفضل: europe-west1)
+           - ابدأ في وضع Test mode لسهولة الاختبار
+        
+        4️⃣ أنشئ Web App:
+           - في Project Overview، اضغط على أيقونة الويب (</>)
+           - اختر اسم للتطبيق
+           - لا تحتاج لـ Firebase Hosting
+        
+        5️⃣ انسخ إعدادات Firebase:
+           - ستظهر لك إعدادات Firebase
+           - انسخ القيم واستبدلها في المكان المحدد أدناه
+        
+        ============================================
+        */
+
+        // 👇 استبدل هذه القيم بقيم Firebase الخاصة بك
+        const firebaseConfig = {
+            apiKey: "AIzaSyA0jAiXORMzI9YksoJae4-HnnSTIOD4RzI",
+            authDomain: "mnr-tv.firebaseapp.com",
+            databaseURL: "https://mnr-tv-default-rtdb.firebaseio.com",
+            projectId: "mnr-tv",
+            storageBucket: "YOUR_PROJECT_ID.firebasestorage.app",
+            messagingSenderId: "726968494460",
+            appId: "1:726968494460:web:fce24056b34f8a47e1dcf9"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // المتغيرات العامة
+        window.appData = {};
+        window.currentCategory = null;
+
+        // Custom modal dialog function
+        function showConfirmDialog(message, onConfirm) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+            modal.innerHTML = `
+                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg max-w-sm w-full mx-4">
+                    <p class="text-gray-700 dark:text-gray-300 mb-4">${message}</p>
+                    <div class="flex justify-end space-x-3">
+                        <button class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded mr-2" onclick="this.closest('.fixed').remove()">إلغاء</button>
+                        <button class="px-4 py-2 bg-red-500 text-white hover:bg-red-600 rounded" onclick="this.closest('.fixed').remove(); (${onConfirm.toString()})()">تأكيد</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // تحميل البيانات
+        function loadData() {
+            const appRef = ref(database, 'fahedTV');
+            onValue(appRef, (snapshot) => {
+                const data = snapshot.val() || {};
+                window.appData = data;
+                renderCategories();
+                renderEvents();
+            });
+        }
+
+        // حفظ البيانات
+        async function saveData() {
+            try {
+                await set(ref(database, 'fahedTV'), window.appData);
+                showSuccess('تم الحفظ بنجاح!');
+            } catch (error) {
+                showError('خطأ في الحفظ: ' + error.message);
+            }
+        }
+
+        // إضافة فئة جديدة
+        window.addCategory = async function() {
+            const name = document.getElementById('categoryName').value.trim();
+            const type = document.getElementById('categoryType').value;
+
+            if (!name) {
+                showError('يرجى إدخال اسم الفئة');
+                return;
+            }
+
+            const categoryKey = name.replace(/\s+/g, '_').toLowerCase();
+            
+            if (!window.appData.categories) {
+                window.appData.categories = {};
+            }
+
+            window.appData.categories[categoryKey] = {
+                name: name,
+                type: type,
+                active: true,
+                items: {}
+            };
+
+            document.getElementById('categoryName').value = '';
+            await saveData();
+        };
+
+        // رسم الفئات
+        function renderCategories() {
+            const container = document.getElementById('categoriesList');
+            
+            if (!window.appData.categories || Object.keys(window.appData.categories).length === 0) {
+                container.innerHTML = '<div class="text-center py-8 text-gray-500">لا توجد فئات</div>';
+                return;
+            }
+
+            let html = '';
+            Object.entries(window.appData.categories).forEach(([key, category]) => {
+                const itemsCount = category.items ? Object.keys(category.items).length : 0;
+                html += `
+                    <div class="item-card ${!category.active ? 'inactive' : ''}">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-lg font-bold">${category.name}</h4>
+                            <div class="flex items-center">
+                                <span class="status-badge ${category.active ? 'status-active' : 'status-inactive'} ml-3">
+                                    ${category.active ? 'نشط' : 'غير نشط'}
+                                </span>
+                                <div class="toggle ${category.active ? 'active' : ''}" onclick="toggleCategory('${key}')">
+                                    <div class="toggle-circle"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-3">النوع: ${getTypeText(category.type)} | العناصر: ${itemsCount}</p>
+                        <div class="flex gap-2">
+                            <button class="btn btn-primary text-sm" onclick="manageItems('${key}')">
+                                <i class="fas fa-edit ml-1"></i>إدارة العناصر
+                            </button>
+                            <button class="btn btn-danger text-sm" onclick="deleteCategory('${key}')">
+                                <i class="fas fa-trash ml-1"></i>حذف
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // تبديل حالة الفئة
+        window.toggleCategory = async function(key) {
+            if (window.appData.categories && window.appData.categories[key]) {
+                window.appData.categories[key].active = !window.appData.categories[key].active;
+                await saveData();
+            }
+        };
+
+        // حذف فئة
+        window.deleteCategory = async function(key) {
+            if (window.appData.categories && window.appData.categories[key]) {
+                delete window.appData.categories[key];
+                await saveData();
+            }
+        };
+
+        // إدارة عناصر الفئة
+        window.manageItems = function(categoryKey) {
+            window.currentCategory = categoryKey;
+            const category = window.appData.categories[categoryKey];
+            document.getElementById('modalTitle').textContent = `إدارة عناصر: ${category.name}`;
+            
+            let modalHtml = `
+                <div class="mb-6">
+                    <h4 class="text-xl font-bold mb-4">إضافة عنصر جديد</h4>
+                    <input type="text" id="itemName" placeholder="اسم العنصر" class="input-field">
+                    <input type="url" id="itemUrl" placeholder="رابط العنصر" class="input-field">
+            `;
+
+            if (category.type === 'movies') {
+                modalHtml += `
+                    <input type="text" id="itemYear" placeholder="السنة" class="input-field">
+                    <input type="text" id="itemRating" placeholder="التقييم" class="input-field">
+                    <input type="text" id="itemQuality" placeholder="الجودة (HD, 4K)" class="input-field">
+                `;
+            } else if (category.type === 'channels') {
+                modalHtml += `
+                    <input type="text" id="itemQuality" placeholder="الجودة (HD, 4K)" class="input-field">
+                `;
+            } else if (category.type === 'news') {
+                modalHtml += `
+                    <input type="text" id="itemDescription" placeholder="الوصف" class="input-field">
+                `;
+            }
+
+            modalHtml += `
+                    <button class="btn btn-primary w-full" onclick="addItem()">
+                        <i class="fas fa-plus ml-2"></i>إضافة عنصر
+                    </button>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-4">العناصر الموجودة</h4>
+                    <div id="itemsList" class="item-list">
+            `;
+
+            if (category.items && Object.keys(category.items).length > 0) {
+                Object.entries(category.items).forEach(([itemKey, item]) => {
+                    modalHtml += `
+                        <div class="item-card ${!item.active ? 'inactive' : ''}">
+                            <div class="flex justify-between items-center mb-2">
+                                <h5 class="text-md font-bold">${item.name}</h5>
+                                <div class="toggle ${item.active ? 'active' : ''}" onclick="toggleItem('${itemKey}')">
+                                    <div class="toggle-circle"></div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">${item.url || 'لا يوجد رابط'}</p>
+                            <div class="flex gap-2">
+                                ${category.type === 'movies' ? `
+                                    <button class="btn btn-success text-sm" onclick="manageEpisodes('${itemKey}')">
+                                        <i class="fas fa-list ml-1"></i>الحلقات
+                                    </button>
+                                ` : ''}
+                                <button class="btn btn-danger text-sm" onclick="deleteItem('${itemKey}')">
+                                    <i class="fas fa-trash ml-1"></i>حذف
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                modalHtml += '<div class="text-center py-8 text-gray-500">لا توجد عناصر</div>';
+            }
+
+            modalHtml += '</div></div>';
+            
+            document.getElementById('modalContent').innerHTML = modalHtml;
+            document.getElementById('itemModal').classList.add('active');
+        };
+
+        // إضافة عنصر
+        window.addItem = async function() {
+            const name = document.getElementById('itemName').value.trim();
+            const url = document.getElementById('itemUrl').value.trim();
+
+            if (!name) {
+                showError('يرجى إدخال اسم العنصر');
+                return;
+            }
+
+            const itemKey = name.replace(/\s+/g, '_').toLowerCase();
+            const category = window.appData.categories[window.currentCategory];
+
+            if (!category.items) {
+                category.items = {};
+            }
+
+            const item = {
+                name: name,
+                url: url,
+                active: true
+            };
+
+            // إضافة الحقول حسب نوع الفئة
+            if (category.type === 'movies') {
+                const year = document.getElementById('itemYear')?.value.trim();
+                const rating = document.getElementById('itemRating')?.value.trim();
+                const quality = document.getElementById('itemQuality')?.value.trim();
+                
+                if (year) item.year = year;
+                if (rating) item.rating = rating;
+                if (quality) item.quality = quality;
+                item.episodes = {};
+            } else if (category.type === 'channels') {
+                const quality = document.getElementById('itemQuality')?.value.trim();
+                if (quality) item.quality = quality;
+            } else if (category.type === 'news') {
+                const description = document.getElementById('itemDescription')?.value.trim();
+                if (description) item.description = description;
+            }
+
+            category.items[itemKey] = item;
+
+            // مسح الحقول
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemUrl').value = '';
+            if (document.getElementById('itemYear')) document.getElementById('itemYear').value = '';
+            if (document.getElementById('itemRating')) document.getElementById('itemRating').value = '';
+            if (document.getElementById('itemQuality')) document.getElementById('itemQuality').value = '';
+            if (document.getElementById('itemDescription')) document.getElementById('itemDescription').value = '';
+
+            await saveData();
+            manageItems(window.currentCategory); // إعادة تحديث النافذة
+        };
+
+        // تبديل حالة العنصر
+        window.toggleItem = async function(itemKey) {
+            const category = window.appData.categories[window.currentCategory];
+            if (category.items && category.items[itemKey]) {
+                category.items[itemKey].active = !category.items[itemKey].active;
+                await saveData();
+            }
+        };
+
+        // حذف عنصر
+        window.deleteItem = async function(itemKey) {
+            const category = window.appData.categories[window.currentCategory];
+            if (category.items && category.items[itemKey]) {
+                delete category.items[itemKey];
+                await saveData();
+                manageItems(window.currentCategory); // إعادة تحديث النافذة
+            }
+        };
+
+        // إدارة الحلقات
+        window.manageEpisodes = function(itemKey) {
+            const category = window.appData.categories[window.currentCategory];
+            const item = category.items[itemKey];
+            
+            let modalHtml = `
+                <div class="mb-6">
+                    <h4 class="text-xl font-bold mb-4">إضافة حلقة جديدة: ${item.name}</h4>
+                    <input type="text" id="episodeName" placeholder="اسم الحلقة (مثال: الحلقة 1)" class="input-field">
+                    <input type="url" id="episodeUrl" placeholder="رابط الحلقة" class="input-field">
+                    <input type="text" id="episodeDuration" placeholder="المدة (مثال: 45 دقيقة)" class="input-field">
+                    <button class="btn btn-primary w-full" onclick="addEpisode('${itemKey}')">
+                        <i class="fas fa-plus ml-2"></i>إضافة حلقة
+                    </button>
+                </div>
+                
+                <div>
+                    <h4 class="text-xl font-bold mb-4">الحلقات الموجودة</h4>
+                    <div class="item-list">
+            `;
+
+            if (item.episodes && Object.keys(item.episodes).length > 0) {
+                Object.entries(item.episodes).forEach(([epKey, episode]) => {
+                    modalHtml += `
+                        <div class="item-card ${!episode.active ? 'inactive' : ''}">
+                            <div class="flex justify-between items-center mb-2">
+                                <h5 class="text-md font-bold">${episode.name}</h5>
+                                <div class="toggle ${episode.active ? 'active' : ''}" onclick="toggleEpisode('${itemKey}', '${epKey}')">
+                                    <div class="toggle-circle"></div>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">${episode.duration || 'غير محدد'}</p>
+                            <button class="btn btn-danger text-sm" onclick="deleteEpisode('${itemKey}', '${epKey}')">
+                                <i class="fas fa-trash ml-1"></i>حذف
+                            </button>
+                        </div>
+                    `;
+                });
+            } else {
+                modalHtml += '<div class="text-center py-8 text-gray-500">لا توجد حلقات</div>';
+            }
+
+            modalHtml += `
+                    </div>
+                    <button class="btn btn-primary w-full mt-4" onclick="manageItems('${window.currentCategory}')">
+                        <i class="fas fa-arrow-left ml-2"></i>العودة للعناصر
+                    </button>
+                </div>
+            `;
+
+            document.getElementById('modalContent').innerHTML = modalHtml;
+        };
+
+        // إضافة حلقة
+        window.addEpisode = async function(itemKey) {
+            const name = document.getElementById('episodeName').value.trim();
+            const url = document.getElementById('episodeUrl').value.trim();
+            const duration = document.getElementById('episodeDuration').value.trim();
+
+            if (!name || !url) {
+                showError('يرجى إدخال اسم الحلقة والرابط');
+                return;
+            }
+
+            const epKey = name.replace(/\s+/g, '_').toLowerCase();
+            const category = window.appData.categories[window.currentCategory];
+            const item = category.items[itemKey];
+
+            if (!item.episodes) {
+                item.episodes = {};
+            }
+
+            item.episodes[epKey] = {
+                name: name,
+                url: url,
+                duration: duration || '45 دقيقة',
+                active: true
+            };
+
+            document.getElementById('episodeName').value = '';
+            document.getElementById('episodeUrl').value = '';
+            document.getElementById('episodeDuration').value = '';
+
+            await saveData();
+            manageEpisodes(itemKey); // إعادة تحديث النافذة
+        };
+
+        // تبديل حالة الحلقة
+        window.toggleEpisode = async function(itemKey, epKey) {
+            const category = window.appData.categories[window.currentCategory];
+            const item = category.items[itemKey];
+            if (item.episodes && item.episodes[epKey]) {
+                item.episodes[epKey].active = !item.episodes[epKey].active;
+                await saveData();
+            }
+        };
+
+        // حذف حلقة
+        window.deleteEpisode = async function(itemKey, epKey) {
+            const category = window.appData.categories[window.currentCategory];
+            const item = category.items[itemKey];
+            if (item.episodes && item.episodes[epKey]) {
+                delete item.episodes[epKey];
+                await saveData();
+                manageEpisodes(itemKey); // إعادة تحديث النافذة
+            }
+        };
+
+        // إضافة حدث
+        window.addEvent = async function() {
+            const team1 = document.getElementById('eventTeam1').value.trim();
+            const team1Code = document.getElementById('eventTeam1Code').value.trim();
+            const team2 = document.getElementById('eventTeam2').value.trim();
+            const team2Code = document.getElementById('eventTeam2Code').value.trim();
+            const tournament = document.getElementById('eventTournament').value.trim();
+            const status = document.getElementById('eventStatus').value.trim();
+            const commentator = document.getElementById('eventCommentator').value.trim();
+            const channel = document.getElementById('eventChannel').value.trim();
+            const url = document.getElementById('eventUrl').value.trim();
+
+            if (!team1 || !team2 || !tournament) {
+                showError('يرجى ملء البيانات الأساسية');
+                return;
+            }
+
+            const eventKey = `${team1}_vs_${team2}`.replace(/\s+/g, '_').toLowerCase();
+
+            if (!window.appData.events) {
+                window.appData.events = {};
+            }
+
+            window.appData.events[eventKey] = {
+                team1: { name: team1, code: team1Code || team1.substring(0, 3).toUpperCase() },
+                team2: { name: team2, code: team2Code || team2.substring(0, 3).toUpperCase() },
+                tournament: tournament,
+                status: status || 'قريباً',
+                commentator: commentator,
+                channel: channel,
+                url: url,
+                active: true
+            };
+
+            // مسح الحقول
+            document.getElementById('eventTeam1').value = '';
+            document.getElementById('eventTeam1Code').value = '';
+            document.getElementById('eventTeam2').value = '';
+            document.getElementById('eventTeam2Code').value = '';
+            document.getElementById('eventTournament').value = '';
+            document.getElementById('eventStatus').value = '';
+            document.getElementById('eventCommentator').value = '';
+            document.getElementById('eventChannel').value = '';
+            document.getElementById('eventUrl').value = '';
+
+            await saveData();
+        };
+
+        // رسم الأحداث
+        function renderEvents() {
+            const container = document.getElementById('eventsList');
+            
+            if (!window.appData.events || Object.keys(window.appData.events).length === 0) {
+                container.innerHTML = '<div class="text-center py-8 text-gray-500">لا توجد أحداث</div>';
+                return;
+            }
+
+            let html = '';
+            Object.entries(window.appData.events).forEach(([key, event]) => {
+                html += `
+                    <div class="item-card ${!event.active ? 'inactive' : ''}">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="text-lg font-bold">${event.team1.name} vs ${event.team2.name}</h4>
+                            <div class="toggle ${event.active ? 'active' : ''}" onclick="toggleEvent('${key}')">
+                                <div class="toggle-circle"></div>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mb-2">البطولة: ${event.tournament}</p>
+                        <p class="text-gray-600 mb-2">الحالة: ${event.status}</p>
+                        <p class="text-gray-600 mb-3">القناة: ${event.channel || 'غير محدد'}</p>
+                        <button class="btn btn-danger text-sm" onclick="deleteEvent('${key}')">
+                            <i class="fas fa-trash ml-1"></i>حذف
+                        </button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // تبديل حالة الحدث
+        window.toggleEvent = async function(key) {
+            if (window.appData.events && window.appData.events[key]) {
+                window.appData.events[key].active = !window.appData.events[key].active;
+                await saveData();
+            }
+        };
+
+        // حذف حدث
+        window.deleteEvent = async function(key) {
+            if (window.appData.events && window.appData.events[key]) {
+                delete window.appData.events[key];
+                await saveData();
+            }
+        };
+
+        // وظائف مساعدة
+        function getTypeText(type) {
+            const types = {
+                'movies': 'أفلام ومسلسلات',
+                'channels': 'قنوات',
+                'news': 'أخبار'
+            };
+            return types[type] || type;
+        }
+
+        function showSuccess(message) {
+            document.getElementById('successText').textContent = message;
+            document.getElementById('successMessage').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('successMessage').style.display = 'none';
+            }, 3000);
+        }
+
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorMessage').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('errorMessage').style.display = 'none';
+            }, 3000);
+        }
+
+        // وظائف التبويبات
+        window.showTab = function(tabName) {
+            // إخفاء جميع التبويبات
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+
+            // إظهار التبويب المحدد
+            document.getElementById(tabName + 'Tab').classList.add('active');
+            event.target.classList.add('active');
+        };
+
+        // إغلاق النافذة المنبثقة
+        window.closeModal = function() {
+            document.getElementById('itemModal').classList.remove('active');
+        };
+
+        // وظائف الإعدادات
+        window.exportData = function() {
+            const dataStr = JSON.stringify(window.appData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'fahed-tv-data.json';
+            link.click();
+        };
+
+        window.clearAllData = async function() {
+            window.appData = {};
+            await saveData();
+            showSuccess('تم مسح جميع البيانات');
+        };
+
+        window.loadSampleData = async function() {
+            const sampleData = {
+                categories: {
+                    arab_series: {
+                        name: 'المسلسلات العربية',
+                        type: 'movies',
+                        active: true,
+                        items: {
+                            ikhtiyar: {
+                                name: 'الاختيار',
+                                url: '',
+                                year: '2020',
+                                rating: '9.2',
+                                quality: 'HD',
+                                active: true,
+                                episodes: {
+                                    episode_1: {
+                                        name: 'الحلقة 1',
+                                        url: 'https://example.com/episode1',
+                                        duration: '45 دقيقة',
+                                        active: true
+                                    },
+                                    episode_2: {
+                                        name: 'الحلقة 2',
+                                        url: 'https://example.com/episode2',
+                                        duration: '47 دقيقة',
+                                        active: true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    sports_channels: {
+                        name: 'beIN SPORTS',
+                        type: 'channels',
+                        active: true,
+                        items: {
+                            bein1: {
+                                name: 'beIN SPORTS 1',
+                                url: 'https://example.com/bein1',
+                                quality: '1080P',
+                                active: true
+                            },
+                            bein2: {
+                                name: 'beIN SPORTS 2',
+                                url: 'https://example.com/bein2',
+                                quality: '1080P',
+                                active: true
+                            }
+                        }
+                    }
+                },
+                events: {
+                    chelsea_vs_psg: {
+                        team1: { name: 'تشيلسي', code: 'CHE' },
+                        team2: { name: 'باريس سان جيرمان', code: 'PSG' },
+                        tournament: 'كأس العالم للأندية',
+                        status: 'انتهت المباراة',
+                        commentator: 'حماد المنزي',
+                        channel: 'DAZN 1',
+                        url: 'https://example.com/match',
+                        active: true
+                    }
+                }
+            };
+
+            window.appData = sampleData;
+            await saveData();
+            showSuccess('تم تحميل البيانات التجريبية');
+        };
+
+        // بدء التطبيق
+        loadData();
+
+    </script>
+
+</body>
+</html>
