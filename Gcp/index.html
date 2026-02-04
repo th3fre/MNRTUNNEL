@@ -3,20 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MNR PRO | Full Stable Suite v6.0</title>
+    <title>MNR PRO | Stable v6.8</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background: #020617; color: #f8fafc; min-height: 100vh; overflow-x: hidden; }
-        .sidebar { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1000; position: fixed; right: 0; top: 0; height: 100%; width: 280px; }
+        body { font-family: 'Tajawal', sans-serif; background: #020617; color: #f8fafc; min-height: 100vh; }
+        .sidebar { transition: transform 0.4s ease; z-index: 1000; position: fixed; right: 0; top: 0; height: 100%; width: 280px; }
         .sidebar:not(.active) { transform: translateX(100%); }
         .glass-card { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.05); }
-        .tab-active { background: #2563eb !important; color: white !important; box-shadow: 0 0 15px rgba(37, 99, 235, 0.4); }
-        input, textarea, select { background: #0f172a !important; border: 1px solid #1e293b !important; color: #e2e8f0 !important; outline: none; transition: 0.2s; }
-        input:focus { border-color: #3b82f6 !important; }
-        #toast { visibility: hidden; min-width: 250px; background: #1e293b; color: #fff; text-align: center; border-radius: 12px; padding: 16px; position: fixed; z-index: 2000; bottom: 30px; left: 50%; transform: translateX(-50%); border: 1px solid #3b82f6; opacity: 0; transition: 0.3s ease; }
-        #toast.show { visibility: visible; opacity: 1; bottom: 40px; }
+        input, textarea, select { background: #0f172a !important; border: 1px solid #1e293b !important; color: #e2e8f0 !important; outline: none; }
+        #toast { visibility: hidden; min-width: 250px; background: #1e293b; color: #fff; text-align: center; border-radius: 12px; padding: 16px; position: fixed; z-index: 2000; bottom: 30px; left: 50%; transform: translateX(-50%); border: 1px solid #3b82f6; opacity: 0; transition: 0.3s; }
+        #toast.show { visibility: visible; opacity: 1; }
     </style>
 </head>
 <body>
@@ -25,18 +23,18 @@
     <div id="sidebar" class="bg-slate-900 sidebar border-l border-slate-800 shadow-2xl">
         <div class="p-8">
             <div class="flex justify-between items-center mb-10 border-b border-slate-800 pb-5">
-                <span class="text-2xl font-black text-blue-500 tracking-tighter">MNR <span class="text-white font-light">PRO</span></span>
-                <button onclick="toggleSidebar()" class="text-slate-400 hover:text-white transition-colors"><i class="fas fa-times text-2xl"></i></button>
+                <span class="text-2xl font-black text-blue-500">MNR PRO</span>
+                <button onclick="toggleSidebar()"><i class="fas fa-times text-2xl"></i></button>
             </div>
             <nav class="space-y-4">
-                <button onclick="showPage('generator')" class="w-full p-4 rounded-2xl flex items-center gap-4 bg-slate-800/50 hover:bg-blue-600/20 transition-all text-slate-300">
+                <button onclick="showPage('generator')" class="w-full p-4 rounded-2xl flex items-center gap-4 bg-slate-800/50 hover:bg-blue-600/20 transition-all text-right text-slate-300">
                     <i class="fas fa-bolt text-yellow-500 w-6"></i> <span>المولد الذكي</span>
                 </button>
-                <button onclick="showPage('converter')" class="w-full p-4 rounded-2xl flex items-center gap-4 bg-slate-800/50 hover:bg-emerald-600/20 transition-all text-slate-300">
-                    <i class="fas fa-sync-alt text-emerald-500 w-6"></i> <span>المحول الجماعي</span>
+                <button onclick="showPage('converter')" class="w-full p-4 rounded-2xl flex items-center gap-4 bg-slate-800/50 hover:bg-emerald-600/20 transition-all text-right text-slate-300">
+                    <i class="fas fa-exchange-alt text-emerald-500 w-6"></i> <span>المحول الجماعي</span>
                 </button>
-                <button onclick="showPage('database')" class="w-full p-4 rounded-2xl flex items-center gap-4 bg-slate-800/50 hover:bg-blue-600/20 transition-all text-slate-300">
-                    <i class="fas fa-server text-blue-500 w-6"></i> <span>إدارة الهوستات</span>
+                <button onclick="showPage('database')" class="w-full p-4 rounded-2xl flex items-center gap-4 bg-slate-800/50 hover:bg-blue-600/20 transition-all text-right text-slate-300">
+                    <i class="fas fa-database text-blue-500 w-6"></i> <span>إدارة الهوستات</span>
                 </button>
             </nav>
         </div>
@@ -45,75 +43,89 @@
     <div class="min-h-screen flex flex-col">
         <header class="p-5 glass-card sticky top-0 z-50 flex justify-between items-center px-8 border-b border-slate-800">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl flex items-center justify-center shadow-lg shadow-blue-900/40">
-                    <i class="fas fa-shield-alt text-white"></i>
-                </div>
-                <h1 class="text-xl font-bold tracking-tight text-white">MNR TOOLS <span class="text-[10px] bg-blue-600 px-2 py-0.5 rounded ml-2 uppercase">V6 Stable</span></h1>
+                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center font-bold font-mono">M</div>
+                <h1 class="text-xl font-bold tracking-tight">MNR TOOLS <span class="text-[10px] bg-blue-600 px-2 py-0.5 rounded ml-2 uppercase">V6.8 Stable</span></h1>
             </div>
-            <button onclick="toggleSidebar()" class="p-3 bg-slate-800 hover:bg-slate-700 rounded-xl transition-all shadow-inner"><i class="fas fa-bars"></i></button>
+            <button onclick="toggleSidebar()" class="p-3 bg-slate-800 rounded-xl hover:bg-slate-700 transition-all"><i class="fas fa-bars"></i></button>
         </header>
 
         <main id="page-generator" class="flex-grow max-w-6xl mx-auto p-6 w-full">
-            <div class="mt-8 text-center">
+            <div class="mt-4 mb-8 glass-card p-4 rounded-2xl border-r-4 border-blue-500">
+                <h2 class="text-blue-400 font-bold text-sm mb-2"><i class="fas fa-info-circle ml-2"></i> دليل المولد الذكي:</h2>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                    هذا المولد يقوم بسحب (UUID) والمسار من الرابط الذي تضعه، ثم يدمجهما تلقائياً مع جميع السيرفرات المخزنة في قاعدة بياناتك. 
+                    <span class="text-blue-300 italic">يدعم ميزة [host] لاستبدال الهوست الأصلي تلقائياً.</span>
+                </p>
+            </div>
+
+            <div class="mt-4 text-center">
                 <div id="tabsContainer" class="flex flex-wrap gap-2 p-2 bg-slate-900/50 rounded-2xl border border-slate-800 mb-8 hidden max-w-2xl mx-auto">
-                    <button id="btnGCP" onclick="switchTab('GCP')" class="flex-1 py-3 rounded-xl text-[11px] font-bold text-slate-400 hidden transition-all">GCP</button>
-                    <button id="btnVLESS" onclick="switchTab('VLESS')" class="flex-1 py-3 rounded-xl text-[11px] font-bold text-slate-400 hidden transition-all">VLESS TLS</button>
-                    <button id="btnNON" onclick="switchTab('NON')" class="flex-1 py-3 rounded-xl text-[11px] font-bold text-slate-400 hidden transition-all">VLESS NTLS</button>
-                    <button id="btnVMESS" onclick="switchTab('VMESS')" class="flex-1 py-3 rounded-xl text-[11px] font-bold text-slate-400 hidden transition-all">VMESS</button>
-                    <button id="btnTROJAN" onclick="switchTab('TROJAN')" class="flex-1 py-3 rounded-xl text-[11px] font-bold text-slate-400 hidden transition-all">TROJAN</button>
+                    <button id="btnGCP" onclick="switchTab('GCP')" class="flex-1 py-3 rounded-xl text-[11px] font-bold text-slate-400 hidden">GCP</button>
+                    <button id="btnVLESS" onclick="switchTab('VLESS')" class="flex-1 py-3 rounded-xl text-[11px] font-bold text-slate-400 hidden">VLESS TLS</button>
+                    <button id="btnNON" onclick="switchTab('NON')" class="flex-1 py-3 rounded-xl text-[11px] font-bold text-slate-400 hidden">VLESS NTLS</button>
+                    <button id="btnVMESS" onclick="switchTab('VMESS')" class="flex-1 py-3 rounded-xl text-[11px] font-bold text-slate-400 hidden">VMESS</button>
+                    <button id="btnTROJAN" onclick="switchTab('TROJAN')" class="flex-1 py-3 rounded-xl text-[11px] font-bold text-slate-400 hidden">TROJAN</button>
                 </div>
-                <div class="relative group max-w-3xl mx-auto">
-                    <input type="text" id="mainLink" placeholder="الصق الرابط أو JSON الخاص بـ GCP هنا..." 
-                    class="w-full p-6 rounded-3xl text-left font-mono text-sm bg-slate-900 border-2 border-slate-800 focus:border-blue-600 shadow-2xl transition-all" dir="ltr" oninput="autoDetectAndGenerate()">
-                </div>
+                <input type="text" id="mainLink" placeholder="الصق الرابط (vless/vmess) أو كود GCP هنا..." 
+                class="w-full p-6 rounded-3xl text-left font-mono text-sm bg-slate-900 border-2 border-slate-800 focus:border-blue-600 shadow-2xl transition-all" dir="ltr" oninput="autoDetectAndGenerate()">
             </div>
             <div id="networksGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12"></div>
         </main>
 
         <main id="page-converter" class="max-w-7xl mx-auto p-6 hidden w-full flex-grow">
-            <div class="grid lg:grid-cols-2 gap-8 mt-4">
+            <div class="flex justify-end mb-4">
+                <button onclick="clearConverter()" class="px-6 py-2 bg-red-600/20 hover:bg-red-600 text-red-500 hover:text-white border border-red-600/50 rounded-xl text-xs font-bold transition-all flex items-center gap-2">
+                    <i class="fas fa-trash-alt"></i> إفراغ الحقول
+                </button>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-8">
                 <div class="glass-card p-8 rounded-[2rem] border-t-4 border-blue-600">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-blue-400 font-bold uppercase text-sm">روابط URI (متعددة)</h3>
-                        <button onclick="copyToClipboard('inputURI')" class="text-xs bg-slate-800 px-3 py-1.5 rounded-lg hover:text-blue-400 transition-all">نسخ الكل</button>
+                        <h3 class="text-blue-400 font-bold uppercase text-sm">URI Links</h3>
+                        <button onclick="copyToClipboard('inputURI')" class="text-[10px] bg-slate-800 px-3 py-1 rounded-lg hover:bg-blue-600 transition-all">نسخ الكل</button>
                     </div>
-                    <textarea id="inputURI" class="w-full h-80 rounded-2xl p-5 text-xs font-mono mb-6 leading-relaxed" placeholder="vless://...&#10;vless://..." dir="ltr"></textarea>
-                    <button onclick="processUriToJson()" class="w-full py-5 bg-blue-600 hover:bg-blue-500 rounded-2xl font-black text-sm shadow-lg transition-all">تحويل إلى JSON مخصص <i class="fas fa-arrow-left mr-2"></i></button>
+                    <textarea id="inputURI" class="w-full h-80 rounded-2xl p-5 text-xs font-mono mb-6" dir="ltr"></textarea>
+                    <button onclick="processUriToJson()" class="w-full py-5 bg-blue-600 hover:bg-blue-500 rounded-2xl font-black">تحويل إلى JSON</button>
                 </div>
                 <div class="glass-card p-8 rounded-[2rem] border-t-4 border-emerald-600">
                     <div class="flex justify-between items-center mb-4">
-                        <h3 class="text-emerald-400 font-bold uppercase text-sm">JSON (GCP / V2Ray / Array)</h3>
-                        <button onclick="copyToClipboard('outputJSON')" class="text-xs bg-slate-800 px-3 py-1.5 rounded-lg hover:text-emerald-400 transition-all">نسخ الكل</button>
+                        <h3 class="text-emerald-400 font-bold uppercase text-sm">JSON Data</h3>
+                        <button onclick="copyToClipboard('outputJSON')" class="text-[10px] bg-slate-800 px-3 py-1 rounded-lg hover:bg-emerald-600 transition-all">نسخ الكل</button>
                     </div>
-                    <textarea id="outputJSON" class="w-full h-80 rounded-2xl p-5 text-xs font-mono mb-6 leading-relaxed" placeholder='الصق واحد أو أكثر من JSON هنا...' dir="ltr"></textarea>
-                    <button onclick="processJsonToUri()" class="w-full py-5 bg-emerald-600 hover:bg-emerald-500 rounded-2xl font-black text-sm shadow-lg transition-all">تحويل الكل إلى URI <i class="fas fa-arrow-right mr-2"></i></button>
+                    <textarea id="outputJSON" class="w-full h-80 rounded-2xl p-5 text-xs font-mono mb-6" dir="ltr"></textarea>
+                    <button onclick="processJsonToUri()" class="w-full py-5 bg-emerald-600 hover:bg-emerald-500 rounded-2xl font-black">تحويل إلى URI</button>
                 </div>
             </div>
         </main>
 
         <main id="page-database" class="max-w-7xl mx-auto p-6 hidden w-full flex-grow">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-2 glass-card p-8 rounded-[2rem] border-l-4 border-blue-500 shadow-xl">
-                    <h3 class="text-xl font-bold mb-8 flex items-center gap-3"><i class="fas fa-plus-circle text-blue-500"></i> إضافة هوست ذهبي</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <input type="text" id="newName" placeholder="الاسم المستعار" class="w-full p-4 rounded-2xl text-sm">
-                        <input type="text" id="newAddr" placeholder="العنوان (Address)" class="w-full p-4 rounded-2xl text-sm font-mono">
-                        <input type="text" id="newHost" placeholder="الهوست (Host)" class="w-full p-4 rounded-2xl text-sm font-mono">
-                        <input type="text" id="newSni" placeholder="SNI / ServerName" class="w-full p-4 rounded-2xl text-sm font-mono">
-                        <select id="newType" class="w-full p-4 rounded-2xl text-sm">
-                            <option value="gcp">GCP (Cloud Run)</option>
-                            <option value="vless">VLESS TLS</option>
-                            <option value="non">VLESS NTLS</option>
-                            <option value="vmess">VMESS</option>
+                <div class="lg:col-span-2 glass-card p-8 rounded-[2rem] border-l-4 border-blue-500">
+                    <h3 class="text-xl font-bold mb-8">إضافة هوست جديد</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" id="newName" placeholder="الاسم" class="p-4 rounded-xl">
+                        <input type="text" id="newAddr" placeholder="Address أو host" class="p-4 rounded-xl font-mono">
+                        <input type="text" id="newHost" placeholder="Host أو host" class="p-4 rounded-xl font-mono">
+                        <input type="text" id="newSni" placeholder="SNI أو host" class="p-4 rounded-xl font-mono">
+                        <select id="newType" class="p-4 rounded-xl">
+                            <option value="gcp">GCP</option><option value="vless">VLESS TLS</option>
+                            <option value="non">VLESS NTLS</option><option value="vmess">VMESS</option>
                             <option value="trojan">TROJAN</option>
                         </select>
-                        <button onclick="addHost()" class="w-full py-4 bg-blue-600 hover:bg-blue-500 rounded-2xl font-black transition-all">حفظ في القاعدة</button>
+                        <button onclick="addHost()" class="w-full py-4 bg-blue-600 rounded-xl font-bold">إضافة للقاعدة</button>
                     </div>
                 </div>
+
                 <div class="space-y-6">
-                    <div class="glass-card p-6 rounded-[2rem] border-r-4 border-emerald-500">
-                        <button onclick="exportDB()" class="w-full py-4 bg-emerald-600 rounded-2xl font-bold text-xs mb-3 shadow-lg">تصدير النسخة الاحتياطية</button>
-                        <button onclick="document.getElementById('importFile').click()" class="w-full py-4 bg-slate-800 border border-slate-700 rounded-2xl font-bold text-xs">استيراد ملف JSON</button>
+                    <div class="glass-card p-6 rounded-[2rem] border-t-4 border-yellow-500">
+                        <h4 class="text-xs font-bold text-yellow-500 mb-4 uppercase tracking-widest">استيراد عبر رابط</h4>
+                        <input type="text" id="remoteUrl" placeholder="https://site.com/db.json" class="w-full p-3 rounded-xl text-[10px] mb-3">
+                        <button onclick="importRemoteDB()" class="w-full py-3 bg-yellow-600 hover:bg-yellow-500 rounded-xl text-[10px] font-bold transition-all">جلب البيانات الآن</button>
+                    </div>
+                    
+                    <div class="glass-card p-6 rounded-[2rem] border-r-4 border-emerald-500 text-center">
+                        <button onclick="exportDB()" class="w-full py-4 bg-emerald-600 rounded-xl font-bold mb-3">تصدير DB ملف</button>
+                        <button onclick="document.getElementById('importFile').click()" class="w-full py-4 bg-slate-800 border border-slate-700 rounded-xl font-bold">استيراد DB ملف</button>
                         <input type="file" id="importFile" class="hidden" onchange="importDB(event)">
                     </div>
                 </div>
@@ -123,177 +135,144 @@
     </div>
 
     <script>
-        let db = {
-            vless: JSON.parse(localStorage.getItem('mnr_vless')) || [],
-            gcp: JSON.parse(localStorage.getItem('mnr_gcp')) || [],
-            non: JSON.parse(localStorage.getItem('mnr_non')) || [],
-            vmess: JSON.parse(localStorage.getItem('mnr_vmess')) || [],
-            trojan: JSON.parse(localStorage.getItem('mnr_trojan')) || []
-        };
-        let currentTab = "";
+        let db = { vless: [], gcp: [], non: [], vmess: [], trojan: [] };
+        for(let k in db) { db[k] = JSON.parse(localStorage.getItem('mnr_'+k)) || []; }
 
-        function showToast(msg, type = 'blue') {
-            const t = document.getElementById('toast'); t.innerText = msg;
-            t.style.borderColor = type === 'red' ? '#ef4444' : '#3b82f6';
-            t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000);
-        }
-
+        function showToast(msg) { const t = document.getElementById('toast'); t.innerText = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 3000); }
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('active'); }
         function showPage(p) {
             document.querySelectorAll('main').forEach(el => el.classList.add('hidden'));
             document.getElementById('page-' + p).classList.remove('hidden');
             if(p === 'database') renderAdmin();
-            toggleSidebar(); window.scrollTo(0,0);
+            toggleSidebar();
         }
 
-        // --- Core Converter Logic ---
-        function processUriToJson() {
-            const lines = document.getElementById('inputURI').value.split('\n').filter(l => l.trim());
-            let results = [];
-            lines.forEach(uri => {
-                try {
-                    let config = {};
-                    if(uri.startsWith('vmess://')) {
-                        const b = JSON.parse(atob(uri.replace('vmess://','')));
-                        config = buildV2rayJson("vmess", b.add, b.port, b.id, b.path, b.host, b.tls, b.sni, b.ps);
-                    } else if(uri.startsWith('vless://') || uri.startsWith('trojan://')) {
-                        const u = new URL(uri); const p = new URLSearchParams(u.search);
-                        config = buildV2rayJson(u.protocol.replace(':',''), u.hostname, u.port, u.username, p.get('path'), p.get('host'), p.get('security'), p.get('sni'), u.hash.replace('#',''));
-                    }
-                    results.push(config);
-                } catch(e) {}
-            });
-            document.getElementById('outputJSON').value = JSON.stringify(results.length === 1 ? results[0] : results, null, 4);
-            showToast("تم التحويل للتنسيق التفصيلي ✅");
-        }
-
-        function buildV2rayJson(proto, addr, port, id, path, host, sec, sni, tag) {
-            return {
-                "inbounds": [],
-                "outbounds": [{
-                    "mux": { "enabled": false },
-                    "protocol": proto,
-                    "settings": {
-                        "vnext": [{
-                            "address": addr, "port": parseInt(port),
-                            "users": [{ "alterId": 0, "id": id, "level": 8, "security": "auto" }]
-                        }]
-                    },
-                    "streamSettings": {
-                        "network": "ws", "security": sec || "none",
-                        "tlsSettings": { "allowInsecure": true, "serverName": sni || host || addr },
-                        "wsSettings": { "headers": { "Host": host || addr }, "path": path || "/" }
-                    },
-                    "tag": decodeURIComponent(tag || proto.toUpperCase())
-                }],
-                "policy": { "levels": { "8": { "connIdle": 300, "downlinkOnly": 1, "handshake": 4, "uplinkOnly": 1 } } }
-            };
-        }
-
-        function processJsonToUri() {
+        async function importRemoteDB() {
+            const url = document.getElementById('remoteUrl').value.trim();
+            if(!url) return showToast("أدخل الرابط أولاً!");
             try {
-                let raw = document.getElementById('outputJSON').value.trim();
-                raw = raw.replace(/\\\//g, "/"); 
-                let data;
-                if (raw.startsWith('[')) { data = JSON.parse(raw); } 
-                else { data = raw.split(/}\s*{/).map((s,i,a) => { if(i>0)s='{'+s; if(i<a.length-1)s=s+'}'; return JSON.parse(s); }); }
-
-                if (!Array.isArray(data)) data = [data];
-
-                let uris = data.map(j => {
-                    if (j.V2rayUUID || j.ServerIPHost) {
-                        return `vless://${j.V2rayUUID}@${j.ServerIPHost}:${j.SSLPort || 443}?path=${encodeURIComponent(j.V2rayPath || "/")}&security=tls&encryption=none&host=${j.ServerIPHost}&type=ws&sni=${j.ServerIPHost}#${encodeURIComponent(j.Name || "MNR_GCP")}`;
-                    }
-                    if (j.outbounds && j.outbounds[0]) {
-                        const o = j.outbounds[0], v = o.settings.vnext[0], s = o.streamSettings;
-                        const path = s.wsSettings?.path || "/", host = s.wsSettings?.headers?.Host || v.address, sec = s.security || "none";
-                        if(o.protocol === 'vmess') return "vmess://" + btoa(JSON.stringify({v:"2",ps:o.tag,add:v.address,port:v.port,id:v.users[0].id,aid:"0",net:"ws",type:"none",host:host,path:path,tls:sec,sni:s.tlsSettings?.serverName || host}));
-                        return `${o.protocol}://${v.users[0].id}@${v.address}:${v.port}?path=${encodeURIComponent(path)}&security=${sec}&host=${host}&type=ws&sni=${s.tlsSettings?.serverName || host}#${encodeURIComponent(o.tag || "Converted")}`;
-                    }
-                    return null;
-                }).filter(u => u);
-
-                document.getElementById('inputURI').value = uris.join('\n');
-                showToast(`تم تحويل ${uris.length} بنجاح ✅`, "emerald");
-            } catch(e) { showToast("خطأ في تنسيق JSON", "red"); }
+                showToast("جاري الجلب...");
+                const response = await fetch(url);
+                const data = await response.json();
+                if(data) { db = data; save(); showToast("تم الاستيراد بنجاح ✅"); }
+            } catch(e) { showToast("خطأ في الرابط أو الصيغة! ❌"); }
         }
 
-        // --- Generator Logic ---
-        function autoDetectAndGenerate() {
-            const raw = document.getElementById('mainLink').value.trim();
-            const container = document.getElementById('tabsContainer');
-            if(!raw) return;
-            container.classList.remove('hidden');
-            let det = "VLESS";
-            if(raw.includes('vmess')) det = "VMESS";
-            if(raw.includes('.run.app')) det = "GCP";
-            document.querySelectorAll('#tabsContainer button').forEach(b => b.classList.add('hidden'));
-            const targetBtn = document.getElementById('btn' + (det === 'VLESS' ? 'VLESS' : det));
-            if(targetBtn) targetBtn.classList.remove('hidden');
-            switchTab(det);
-        }
+        function clearConverter() { document.getElementById('inputURI').value = ''; document.getElementById('outputJSON').value = ''; showToast("تم الإفراغ 🧹"); }
 
-        function switchTab(t) { currentTab = t; generateAll(); }
+        function copyToClipboard(id) {
+            const el = document.getElementById(id);
+            el.select();
+            document.execCommand('copy');
+            showToast("تم النسخ بنجاح ✅");
+        }
 
         function generateAll() {
             const raw = document.getElementById('mainLink').value.trim();
             const grid = document.getElementById('networksGrid');
-            if(!raw) return;
+            if(!raw) { grid.innerHTML = ''; return; }
             try {
-                let srv = {};
+                let srv = { id: "", oH: "", path: "/", port: 443 };
                 if(raw.startsWith('{')) {
-                    const j = JSON.parse(raw); srv = { id: j.V2rayUUID, oH: j.ServerIPHost, path: j.V2rayPath || "/", port: j.SSLPort || 443 };
+                    const j = JSON.parse(raw.replace(/\\\//g, "/"));
+                    srv = { id: j.V2rayUUID, oH: j.ServerIPHost, path: j.V2rayPath || "/", port: j.SSLPort || 443 };
                 } else {
-                    const u = new URL(raw); const p = new URLSearchParams(u.search);
-                    srv = { id: u.username, oH: p.get('host') || u.hostname, path: p.get('path') || '/', port: u.port || 443 };
+                    if(raw.startsWith('vmess://')) {
+                        const b = JSON.parse(atob(raw.replace('vmess://','')));
+                        srv = { id: b.id, oH: b.host || b.add, path: b.path || "/", port: b.port || 443 };
+                    } else {
+                        const u = new URL(raw); const p = new URLSearchParams(u.search);
+                        srv = { id: u.username, oH: p.get('host') || u.hostname, path: p.get('path') || '/', port: u.port || 443 };
+                    }
                 }
                 let list = db[currentTab.toLowerCase()] || [];
                 grid.innerHTML = list.map(n => {
-                    const fA = n.addr === 'host' ? srv.oH : n.addr;
-                    const fH = n.host === 'host' ? srv.oH : n.host;
-                    const conf = `vless://${srv.id}@${fA}:443?path=${encodeURIComponent(srv.path)}&security=tls&host=${fH}&type=ws&sni=${n.sni === 'host' ? srv.oH : n.sni}#${encodeURIComponent(n.name)}`;
-                    return `<div class="glass-card p-5 rounded-3xl border-b-2 border-blue-600/50">
-                        <div class="text-[10px] font-bold text-blue-300 mb-3">${n.name}</div>
-                        <button onclick="copyRaw('${conf}', this)" class="w-full py-2 bg-blue-600 rounded-xl text-[10px] font-bold">نسخ الإعداد</button>
-                    </div>`;
+                    const checkHost = (val) => {
+                        if (!val) return srv.oH;
+                        const clean = val.toString().toLowerCase();
+                        return (clean === "host" || clean === "[host]") ? srv.oH : val;
+                    };
+                    const fA = checkHost(n.addr), fH = checkHost(n.host), fS = checkHost(n.sni);
+                    const sec = (currentTab === 'NON') ? 'none' : 'tls';
+                    let config = "";
+                    if(currentTab === 'VMESS') {
+                        config = "vmess://" + btoa(JSON.stringify({v:"2",ps:n.name,add:fA,port:srv.port,id:srv.id,aid:"0",net:"ws",type:"none",host:fH,path:srv.path,tls:sec,sni:fS}));
+                    } else {
+                        const sniPart = sec === 'tls' ? `&sni=${fS}` : '';
+                        config = `vless://${srv.id}@${fA}:${srv.port}?path=${encodeURIComponent(srv.path)}&security=${sec}&encryption=none&host=${fH}&type=ws${sniPart}#${encodeURIComponent(n.name)}`;
+                    }
+                    return `<div class="glass-card p-5 rounded-3xl border-b-2 border-blue-600/50"><div class="text-[10px] font-bold text-blue-300 mb-3">${n.name}</div><button onclick="navigator.clipboard.writeText('${config}'); showToast('تم النسخ ✅')" class="w-full py-2 bg-blue-600 rounded-xl text-[10px] font-bold">نسخ الإعداد</button></div>`;
                 }).join('');
             } catch(e) {}
         }
 
-        function copyRaw(s, b) { navigator.clipboard.writeText(s); showToast("تم النسخ ✅"); }
+        function processUriToJson() {
+            const lines = document.getElementById('inputURI').value.split('\n').filter(l => l.trim());
+            let res = lines.map(uri => {
+                try {
+                    if(uri.startsWith('vmess://')) {
+                        const b = JSON.parse(atob(uri.replace('vmess://','')));
+                        return buildV2rayJson("vmess", b.add, b.port, b.id, b.path, b.host, b.tls, b.sni, b.ps);
+                    }
+                    let u = new URL(uri), p = new URLSearchParams(u.search);
+                    return buildV2rayJson(u.protocol.replace(':',''), u.hostname, u.port, u.username, p.get('path'), p.get('host'), p.get('security'), p.get('sni'), u.hash.replace('#',''));
+                } catch(e) { return null; }
+            }).filter(x => x);
+            document.getElementById('outputJSON').value = JSON.stringify(res.length === 1 ? res[0] : res, null, 4);
+            showToast("تم التحويل ✅");
+        }
 
-        // --- Database Logic ---
+        function buildV2rayJson(proto, addr, port, id, path, host, sec, sni, tag) {
+            return { "inbounds": [], "outbounds": [{ "mux": { "enabled": false }, "protocol": proto, "settings": { "vnext": [{ "address": addr, "port": parseInt(port), "users": [{ "alterId": 0, "id": id, "level": 8, "security": "auto" }] }] }, "streamSettings": { "network": "ws", "security": sec || "none", "tlsSettings": { "allowInsecure": true, "serverName": sni || host || addr }, "wsSettings": { "headers": { "Host": host || addr }, "path": path || "/" } }, "tag": decodeURIComponent(tag || "MNR") }], "policy": { "levels": { "8": { "connIdle": 300, "downlinkOnly": 1, "handshake": 4, "uplinkOnly": 1 } } } };
+        }
+
+        function processJsonToUri() {
+            try {
+                let raw = document.getElementById('outputJSON').value.trim().replace(/\\\//g, "/");
+                let data = raw.startsWith('[')? JSON.parse(raw) : [JSON.parse(raw)];
+                let uris = data.map(j => {
+                    if (j.V2rayUUID) return `vless://${j.V2rayUUID}@${j.ServerIPHost}:443?path=${encodeURIComponent(j.V2rayPath || "/")}&security=tls&encryption=none&host=${j.ServerIPHost}&type=ws&sni=${j.ServerIPHost}#${encodeURIComponent(j.Name)}`;
+                    if (j.outbounds) {
+                        const o = j.outbounds[0], v = o.settings.vnext[0], s = o.streamSettings;
+                        const ws = s.wsSettings || { headers: { Host: v.address }, path: "/" };
+                        const sec = s.security || "none";
+                        const sni = (s.tlsSettings && s.tlsSettings.serverName) ? s.tlsSettings.serverName : (ws.headers.Host || v.address);
+                        if (o.protocol === 'vmess') return "vmess://" + btoa(JSON.stringify({v:"2",ps:o.tag,add:v.address,port:v.port,id:v.users[0].id,aid:"0",net:"ws",type:"none",host:ws.headers.Host,path:ws.path,tls:sec,sni:sni}));
+                        return `${o.protocol}://${v.users[0].id}@${v.address}:${v.port}?path=${encodeURIComponent(ws.path)}&security=${sec}&host=${ws.headers.Host}&type=ws&sni=${sni}#${encodeURIComponent(o.tag)}`;
+                    }
+                });
+                document.getElementById('inputURI').value = uris.join('\n');
+                showToast("تم تحويل الكل ✅");
+            } catch(e) { showToast("خطأ في JSON", "red"); }
+        }
+
         function save() { for(let k in db) localStorage.setItem('mnr_'+k, JSON.stringify(db[k])); renderAdmin(); }
         function addHost() {
             const n = document.getElementById('newName').value, a = document.getElementById('newAddr').value, 
                   h = document.getElementById('newHost').value, s = document.getElementById('newSni').value, t = document.getElementById('newType').value;
-            if(n && a) { db[t].push({name:n, addr:a, host:h||'host', sni:s||'host'}); save(); showToast("تم الحفظ ✅"); }
+            if(n && a) { db[t].push({name:n, addr:a, host:h, sni:s}); save(); showToast("تم الحفظ ✅"); }
         }
-        function deleteHost(k, i) { if(confirm('حذف؟')) { db[k].splice(i,1); save(); } }
         function renderAdmin() {
             const grid = document.getElementById('admin_lists'); grid.innerHTML = "";
-            const keys = {gcp:'GCP', vless:'VLESS TLS', non:'VLESS NTLS', vmess:'VMESS', trojan:'TROJAN'};
-            for(let k in keys) {
-                let html = `<div class="glass-card p-4 rounded-xl border-t-2"> <h4 class="text-center font-bold text-[10px] text-blue-400 mb-3">${keys[k]}</h4> <div class="space-y-2">`;
-                db[k].forEach((item, i) => {
-                    html += `<div class="flex justify-between items-center bg-slate-900 p-2 rounded text-[10px]"> <span class="truncate ml-2">${item.name}</span> <button onclick="deleteHost('${k}',${i})" class="text-red-500">X</button> </div>`;
-                });
-                grid.innerHTML += html + `</div></div>`;
+            for(let k in db) {
+                let h = `<div class="glass-card p-3 rounded-xl border-t-2"><h5 class="text-[10px] text-blue-400 mb-2">${k.toUpperCase()}</h5>`;
+                db[k].forEach((x, i) => { h += `<div class="flex justify-between text-[9px] bg-slate-900 p-1 mb-1 rounded"><span>${x.name}</span><button onclick="db['${k}'].splice(${i},1);save()">X</button></div>`; });
+                grid.innerHTML += h + `</div>`;
             }
         }
-        function exportDB() { 
-            const blob = new Blob([JSON.stringify(db, null, 2)], {type: "application/json"});
-            const a = document.createElement("a"); a.href = URL.createObjectURL(blob);
-            a.download = "MNR_PRO_DB.json"; a.click();
+        function autoDetectAndGenerate() {
+            const raw = document.getElementById('mainLink').value.trim();
+            if(!raw) return;
+            document.getElementById('tabsContainer').classList.remove('hidden');
+            let det = "VLESS"; if(raw.includes('vmess')) det = "VMESS"; if(raw.includes('.run.app')) det = "GCP";
+            document.querySelectorAll('#tabsContainer button').forEach(b => b.classList.add('hidden'));
+            document.getElementById('btn' + det).classList.remove('hidden');
+            currentTab = det; generateAll();
         }
-        function importDB(e) {
-            const reader = new FileReader();
-            reader.onload = (x) => { try { db = JSON.parse(x.target.result); save(); showToast("تم الاستيراد ✅"); } catch(e){showToast("ملف غير صالح","red")} };
-            reader.readAsText(e.target.files[0]);
-        }
-        function copyToClipboard(id) { document.getElementById(id).select(); document.execCommand('copy'); showToast("تم النسخ ✅"); }
-        
-        window.onload = () => { renderAdmin(); };
+        function switchTab(t) { currentTab = t; generateAll(); }
+        function exportDB() { const b = new Blob([JSON.stringify(db)], {type: "application/json"}); const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = "DB.json"; a.click(); }
+        function importDB(e) { const r = new FileReader(); r.onload = (x) => { db = JSON.parse(x.target.result); save(); }; r.readAsText(e.target.files[0]); }
+        window.onload = renderAdmin;
     </script>
 </body>
 </html>
