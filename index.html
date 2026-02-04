@@ -1,506 +1,137 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MNR TUNNEL PRO - شبكة VPN مجانية سريعة وآمنة</title>
-  
-  <meta name="description" content="MNR Tunnel Pro: أسرع وأكثر VPN آمن ومجاني للأندرويد. وصول غير محدود للإنترنت مع سياسة عدم الاحتفاظ بالسجلات.">
-  <meta name="keywords" content="VPN مجاني, MNR Tunnel Pro, أندرويد VPN, VPN سريع, بروكسي مجاني, Unlimited VPN">
-  <meta name="author" content="MOUNIR_EL">
-  <meta property="og:title" content="MNR TUNNEL PRO - VPN مجاني وآمن">
-  <meta property="og:description" content="وصول غير محدود للإنترنت مع أمان متقدم. حمل التطبيق مجاناً الآن.">
-  <meta property="og:image" content="icon.png"> 
-  
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-  <style>
-    /* تطبيق RTL على كامل الصفحة لأن المحتوى عربي */
-    body {
-      direction: rtl; 
-      margin: 0;
-      /* تم التعديل: استخدام خط Cairo للغة العربية، مع fallback على Roboto */
-      font-family: 'Cairo', 'Roboto', sans-serif; 
-      /* الخلفية: تدرج من الأزرق الداكن (أعلى) إلى الأخضر الداكن (أسفل) */
-      background: linear-gradient(to bottom, #1c7ed6, #0d6f64); 
-      color: white;
-      text-align: center;
-      line-height: 1.6;
-    }
-    header {
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.2);
-    }
-    header h1 {
-      font-weight: bold;
-      font-size: 32px; /* زيادة حجم الخط للعنوان الرئيسي */
-      margin: 0;
-      letter-spacing: 1.5px; /* تباعد الحروف لمظهر احترافي */
-      text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-    }
-    .logo {
-      width: 120px;
-      height: 120px;
-      border-radius: 20px;
-      margin-bottom: 10px;
-      border: 3px solid #f7b733; /* إطار بلون مميز */
-      box-shadow: 0 0 15px rgba(247, 183, 51, 0.5); /* ظل حول الشعار */
-    }
-    .download-card {
-      /* تطبيق تأثير ضبابي خفيف (Glassmorphism) */
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(5px);
-      border-radius: 20px; /* زيادة الانحناء */
-      padding: 30px;
-      margin: 30px auto;
-      max-width: 450px; /* زيادة العرض قليلاً */
-      box-shadow: 0 8px 30px rgba(0,0,0,0.5); /* ظل أقوى */
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    .download-card h2 {
-      font-size: 26px; /* زيادة حجم العنوان */
-      margin-bottom: 15px;
-      font-weight: bold;
-      color: #f7b733;
-    }
-    .download-card p {
-      font-size: 17px;
-      margin-bottom: 25px;
-    }
-
-    /* **أنماط شبكة الإحصائيات (Stats Grid)** */
-    .stats-grid {
-      display: flex;
-      justify-content: space-around;
-      text-align: center;
-      margin: 20px 0 30px 0;
-      padding: 15px 0;
-      background: rgba(0, 0, 0, 0.15);
-      border-radius: 10px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    .stats-grid div {
-      flex: 1;
-      border-left: 1px solid rgba(255, 255, 255, 0.1); /* تغيير إلى اليسار للـ RTL */
-    }
-    .stats-grid div:first-child {
-      border-left: none;
-    }
-    .stats-grid h3 {
-      font-size: 28px; /* زيادة حجم الأرقام */
-      font-weight: bold;
-      color: #f7b733; /* لون النيون الذهبي */
-      margin: 0 0 5px 0;
-      text-shadow: 0 0 8px rgba(247, 183, 51, 0.7); /* زيادة قوة ظل النص */
-    }
-    .stats-grid p {
-      font-size: 14px;
-      color: #eee;
-      margin: 0;
-    }
-    
-    .version-info {
-      display: flex;
-      justify-content: space-between;
-      margin: 20px 0 0 0;
-      padding: 12px 15px;
-      background: rgba(255, 255, 255, 0.15);
-      border-radius: 10px;
-      font-size: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-    .version-info span {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      flex: 1;
-    }
-    .version-info strong {
-      font-size: 15px;
-      margin-bottom: 5px;
-      color: #e0e0ff;
-    }
-    .version-info .value {
-      font-weight: bold;
-      font-size: 16px;
-    }
-    
-    /* App Screenshots Section */
-    .screenshots {
-      margin-top: 50px;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.1); /* خلفية خفيفة للقسم */
-      padding: 30px 0;
-    }
-
-    .screenshots h2 {
-      color: #fff; 
-      font-size: 28px;
-      margin-bottom: 25px;
-      font-weight: bold;
-      text-shadow: 0 0 5px rgba(247, 183, 51, 0.5); /* ظل ذهبي خفيف */
-    }
-
-    .screenshot-gallery {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      padding: 10px;
-    }
-
-    .screenshot-gallery img {
-      width: 200px; /* حجم موحد */
-      height: auto;
-      border-radius: 15px;
-      box-shadow: 0 0 15px rgba(58, 142, 246, 0.6); /* ظل أزرق جذاب */
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-    }
-
-    .screenshot-gallery img:hover {
-      transform: scale(1.08); /* تكبير أكبر قليلاً */
-      box-shadow: 0 0 30px rgba(247, 183, 51, 0.8); /* ظل ذهبي عند التمرير */
-    }
-
-    /* Mobile Friendly */
-    @media (max-width: 700px) {
-      .download-card { max-width: 90%; }
-      .screenshot-gallery {
-        flex-wrap: nowrap;
-        overflow-x: scroll;
-        justify-content: flex-start; /* يبدأ من اليمين في RTL */
-      }
-      .screenshot-gallery img {
-        width: 160px;
-        flex-shrink: 0; /* منع الصور من الانكماش */
-      }
-      .version-info, .stats-grid { 
-        flex-direction: column;
-        gap: 10px;
-      }
-      .stats-grid div {
-        border-left: none; /* إزالة الخطوط العمودية في الموبايل */
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        padding-bottom: 10px;
-      }
-      .stats-grid div:last-child {
-        border-bottom: none;
-      }
-      .testimonials-container {
-        flex-direction: column;
-      }
-    }
-    
-    .btn {
-      display: inline-block;
-      border: none;
-      border-radius: 30px;
-      padding: 14px 40px; /* زيادة حجم الزر */
-      color: white;
-      font-size: 19px;
-      text-decoration: none;
-      transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
-      margin: 10px;
-      font-weight: bold;
-      letter-spacing: 0.5px;
-    }
-    .btn:hover {
-      transform: translateY(-3px) scale(1.05); /* رفع وتكبير خفيف */
-    }
-    
-    /* زر تنزيل بتأثير نيون قوي */
-    .download-btn { 
-      background-color: #f7b733; 
-      box-shadow: 0 0 20px rgba(247, 183, 51, 0.8); 
-    } 
-    .download-btn:hover { 
-      background-color: #d8a02d; 
-      box-shadow: 0 8px 25px rgba(247, 183, 51, 1);
-    }
-    
-    /* تأثير زجاجي خفيف للأزرار الاجتماعية */
-    .telegram-btn, .whatsapp-btn {
-      background: rgba(255, 255, 255, 0.15); /* إضاءة أكثر */
-      border: 1px solid rgba(255, 255, 255, 0.4);
-      backdrop-filter: blur(8px); /* ضبابية أقوى */
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    }
-    .telegram-btn:hover, .whatsapp-btn:hover { 
-      background: rgba(255, 255, 255, 0.3); 
-    }
-    
-    .social-buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-    section {
-      padding: 50px 15px; /* زيادة التباعد بين الأقسام */
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    /* تمييز خفيف أسفل العنوان (Header Emphasis) */
-    section h2 {
-      font-size: 30px;
-      font-weight: bold;
-      padding-bottom: 5px;
-      border-bottom: 3px solid rgba(247, 183, 51, 0.7); /* خط أسفل أكثر وضوحاً */
-      display: inline-block;
-      margin-bottom: 30px;
-      color: #fff;
-      text-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-    }
-    
-    ul {
-      text-align: right; /* محاذاة لليمين للغة العربية */
-      max-width: 650px;
-      margin: 0 auto;
-      padding-right: 0;
-      list-style: none;
-    }
-    li {
-      padding: 10px 15px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      align-items: center;
-      gap: 15px; 
-      opacity: 0.95;
-      transition: opacity 0.3s ease, background-color 0.3s ease, transform 0.3s;
-    }
-    li:hover {
-      opacity: 1;
-      background-color: rgba(255, 255, 255, 0.1); 
-      border-radius: 8px;
-      transform: translateX(-5px); /* تحريك خفيف لليسار في RTL */
-    }
-    li i {
-        color: #f7b733; 
-        font-size: 1.3em;
-        min-width: 25px; /* لضمان محاذاة النص */
-        text-align: center;
-    }
-    
-    /* أنماط قسم الشهادات */
-    .testimonials {
-        background: rgba(0, 0, 0, 0.2);
-        margin: 30px 0;
-    }
-    .testimonial-card {
-        background: rgba(255, 255, 255, 0.15);
-        padding: 20px;
-        border-radius: 12px;
-        margin: 15px 0;
-        text-align: right; /* محاذاة لليمين */
-        border-right: 5px solid #f7b733; /* شريط جانبي ذهبي (لليمين) */
-        box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-        flex-basis: calc(33.33% - 20px); /* توزيع على 3 أعمدة في الشاشات الكبيرة */
-        transition: transform 0.3s;
-    }
-    .testimonial-card:hover {
-        transform: translateY(-5px);
-    }
-    .testimonial-card p {
-        font-style: italic;
-        margin: 0 0 10px 0;
-        font-size: 16px;
-    }
-    .testimonial-card footer {
-        font-size: 14px;
-        font-weight: bold;
-        color: #ddd;
-    }
-    .testimonials-container {
-        display: flex;
-        gap: 30px;
-        max-width: 1000px;
-        margin: 0 auto;
-        justify-content: center;
-    }
-    @media (max-width: 700px) {
-        .testimonials-container {
-            flex-direction: column; 
-            align-items: center;
-        }
-        .testimonial-card {
-            width: 90%; 
-        }
-    }
-
-
-    footer {
-      background: rgba(0,0,0,0.5); /* خلفية أغمق للفوتر */
-      padding: 25px;
-      font-size: 14px;
-      color: #ccc;
-      margin-top: 30px;
-    }
-    /* أنماط رابط الفوتر */
-    footer a {
-        color: #f7b733;
-        text-decoration: none;
-        font-weight: bold;
-        transition: color 0.3s;
-    }
-    footer a:hover {
-        color: #fff;
-        text-decoration: underline;
-    }
-
-    /* أنماط زر العودة إلى الأعلى */
-    #scrollTopBtn {
-      display: none; 
-      position: fixed;
-      bottom: 25px;
-      left: 25px; /* تغيير الموقع إلى اليسار للـ RTL */
-      z-index: 99;
-      border: none;
-      outline: none;
-      background-color: #f7b733;
-      color: #1c7ed6; /* لون الأيقونة أزرق غامق */
-      cursor: pointer;
-      padding: 12px 17px;
-      border-radius: 50%;
-      font-size: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-      transition: background-color 0.3s, transform 0.2s;
-    }
-    #scrollTopBtn:hover {
-      background-color: #d8a02d;
-      transform: scale(1.1);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MnrTunnel | Multi-Network Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+        body { font-family: 'Tajawal', sans-serif; background: #0f172a; color: #f8fafc; }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; }
+        .glass-card:hover { transform: translateY(-5px); border-color: #38bdf8; }
+        .input-gradient { background: linear-gradient(90deg, #1e293b, #334155); }
+        .btn-copy { transition: all 0.2s; position: relative; overflow: hidden; }
+        .btn-copy:active { transform: scale(0.95); }
+        .badge { font-size: 0.65rem; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; }
+    </style>
 </head>
-<body>
+<body class="p-4 md:p-10">
 
-  <header>
-    <img src="icon.png" alt="MNR Tunnel ProN Logo" class="logo">
-    <h1>MNR TUNNEL PRO</h1>
-    <p>شبكة VPN سريعة • آمنة • وصول غير محدود</p>
-  </header>
-
-  <div class="download-card">
-    <h2>حمّل MNR Tunnel Pro الآن مجاناً</h2>
-    <p>احصل على أحدث إصدار من MNR Tunnel Pro لنظام Android واستمتع بتصفح آمن، سريع، وغير محدود.</p>
-
-    <div class="stats-grid">
-        <div>
-            <h3>+100K</h3>
-            <p>تنزيل</p>
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400 mb-2">HAMO EAGLE Dashboard [GCP]</h1>
+            <p class="text-slate-400">أدخل رابط السيرفر الأساسي وسيتم توليد جميع إعدادات الشبكات تلقائياً</p>
         </div>
-        <div>
-            <h3>4.4 ⭐</h3>
-            <p>تقييم المستخدمين</p>
+
+        <div class="glass-card p-8 rounded-3xl shadow-2xl mb-12">
+            <label class="block text-sm font-bold text-blue-400 mb-3 tracking-widest">SERVER CONFIGURATION (VLESS)</label>
+            <div class="relative">
+                <input type="text" id="mainLink" 
+                    placeholder="vless://uuid@your-server.run.app:443?path=%2F..." 
+                    class="w-full p-4 pr-12 rounded-2xl input-gradient border border-slate-700 focus:ring-2 focus:ring-blue-500 outline-none text-white transition-all"
+                    oninput="generateAll()">
+                <i class="fas fa-server absolute left-4 top-4 text-blue-500"></i>
+            </div>
+            <div id="status" class="mt-3 text-sm text-slate-500 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-slate-600"></span> في انتظار الرابط...
+            </div>
         </div>
+
+        <div id="networksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+
+        <footer class="text-center mt-20 text-slate-500 text-sm border-t border-slate-800 pt-8">
+            MNR System &copy; 2026 | BY MOUNIR_EL
+        </footer>
     </div>
-    <div class="version-info">
-      <span>
-        <strong>إصدار التطبيق</strong>
-        <span class="value">2.2</span>
-      </span>
-      <span>
-        <strong>آخر تحديث</strong>
-        <span class="value">06 ديسمبر 2025</span> 
-      </span>
-    </div>
-    
-    <a href="https://play.google.com/store/apps/details?id=com.mnrtunnel.udp" class="btn download-btn" target="_blank">
-        <i class="fas fa-download"></i> حمّل الآن من Play Store
-    </a>
-  </div>
 
-  <div class="screenshots">
-    <h2>معاينة التطبيق</h2>
-    <div class="screenshot-gallery">
-      <img src="1.jpg" alt="MNR Tunnel Pro Screenshot 1">
-      <img src="2.jpg" alt="MNR Tunnel Pro Screenshot 2">
-      <img src="3.jpg" alt="MNR Tunnel Pro Screenshot 3">
-    </div>
-  </div>
+    <script>
+        const configs = [
+            { name: "Ooredoo ALG", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", color: "red" },
+            { name: "Snapchat All", addr: "app.snapchat.com", sni: "app.snapchat.com", color: "yellow" },
+            { name: "KSA Mobily 60 SR", addr: "c.tenor.com", sni: "c.tenor.com", color: "blue" },
+            { name: "KSA Mobily 30 SR MAP", addr: "maps.gstatic.com", sni: "maps.gstatic.com", color: "blue" },
+            { name: "KSA Mobily Free Unblock", addr: "wa-in-f120.1e100.net", sni: "wa-in-f120.1e100.net", color: "blue" },
+            { name: "KSA Mobily Mashawir 30", addr: "maps.gstatic.com", sni: "maps.gstatic.com", color: "blue" },
+            { name: "KSA Zain Free", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", color: "emerald" },
+            { name: "KSA Mobily Social", addr: "maps.gstatic.com", sni: "maps.gstatic.com", color: "blue" },
+            { name: "SUD Zain FREE", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", color: "emerald" },
+            { name: "SUD All Sim FREE", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", color: "slate" },
+            { name: "Iraq All Sim Free", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", color: "slate" },
+            { name: "Congo Orange 1", addr: "216.58.212.131", sni: "host", color: "orange" },
+            { name: "Congo Orange 2", addr: "172.217.17.134", sni: "yt3.ggpht.com", color: "orange" },
+            { name: "Kenya Airtel Unlim", addr: "m.googleapis.com", sni: "m.googleapis.com", color: "red" },
+            { name: "Kenya YouTube Bypass", addr: "android.googleapis.com", sni: "android.googleapis.com", color: "red" },
+            { name: "Kenya WiFi Bypass", addr: "android.googleapis.com", sni: "android.googleapis.com", color: "indigo" }
+        ];
 
-  <section>
-    <h2>لماذا تختار MNR Tunnel Pro؟</h2>
-    <ul>
-      <li><i class="fas fa-hand-holding-usd"></i> VPN مجاني 100% — لا توجد تكاليف خفية أو اشتراكات.</li>
-      <li><i class="fas fa-infinity"></i> بيانات ونطاق ترددي غير محدودين.</li>
-      <li><i class="fas fa-lock"></i> تشفير AES-256 متطور لحماية بياناتك.</li>
-      <li><i class="fas fa-user-shield"></i> سياسة عدم الاحتفاظ بالسجلات لضمان أقصى خصوصية.</li>
-      <li><i class="fas fa-mobile-alt"></i> يعمل بكفاءة على جميع إصدارات Android.</li>
-    </ul>
-  </section>
+        let serverData = null;
 
-  <section>
-    <h2>الميزات المتقدمة</h2>
-    <ul>
-      <li><i class="fas fa-globe"></i> خوادم عالمية سريعة وموثوقة.</li>
-      <li><i class="fas fa-toggle-on"></i> الاتصال التلقائي و ميزة Kill Switch لإيقاف الإنترنت عند الانقطاع.</li>
-      <li><i class="fas fa-server"></i> حماية ضد تسرب DNS و IP.</li>
-      <li><i class="fas fa-unlock-alt"></i> إلغاء حظر المواقع والتطبيقات ومنصات البث.</li>
-      <li><i class="fas fa-wifi"></i> تأمين اتصال Wi-Fi في الأماكن العامة.</li>
-    </ul>
-  </section>
-  
-  <section class="testimonials">
-    <h2>ماذا يقول المستخدمون؟</h2>
-    <div class="testimonials-container">
-        <div class="testimonial-card">
-            <p>"افضل و اسرع تطبيق جربته لتحويل نجمة.6 الى نجمة 3 ، و الجميل انه يدعم الالعاب ايضا. توصيل فوري!"</p>
-            <footer>— أنور م. (المغرب)</footer>
-        </div>
-        <div class="testimonial-card">
-            <p>"تطبيق ممتاز وسهل الاستعمال، لا يستهلك البطارية كثيراً ويحتوي على خوادم سريعة ومستقرة، شكراً لكم."</p>
-            <footer>— فاطمة س. (مصر)</footer>
-        </div>
-        <div class="testimonial-card">
-            <p>"تطبيق متكامل وسرعة رائعة. أنصح الجميع بتجربته لمن يبحث عن أمان وخصوصية وسرعة اتصال."</p>
-            <footer>— يوسف ع. (السعودية)</footer>
-        </div>
-    </div>
-  </section>
+        function generateAll() {
+            const raw = document.getElementById('mainLink').value.trim();
+            const grid = document.getElementById('networksGrid');
+            const status = document.getElementById('status');
+            
+            if (!raw) {
+                grid.innerHTML = "";
+                status.innerHTML = '<span class="w-2 h-2 rounded-full bg-slate-600"></span> في انتظار الرابط...';
+                return;
+            }
 
-  <section>
-    <h2>انضم إلى مجتمعنا</h2>
-    <p>كن على اطلاع بآخر التحديثات، قوائم الخوادم المجانية، وقنوات الدعم الفني.</p>
-    <div class="social-buttons">
-      <a href="https://t.me/MNRTUNNEL" target="_blank" class="btn telegram-btn">
-          <i class="fab fa-telegram-plane"></i> انضم إلى تليجرام
-      </a>
-      <a href="https://chat.whatsapp.com/KYnYvIHdHB21F9AIlmfXNn" target="_blank" class="btn whatsapp-btn">
-          <i class="fab fa-whatsapp"></i> انضم إلى واتساب
-      </a>
-    </div>
-  </section>
-  
-  <button id="scrollTopBtn" title="العودة إلى الأعلى"><i class="fas fa-arrow-up"></i></button>
+            try {
+                const url = new URL(raw);
+                const params = new URLSearchParams(url.search);
+                serverData = {
+                    uuid: url.username,
+                    originalHost: params.get('host') || url.hostname,
+                    path: params.get('path') || '/',
+                    port: url.port || 443
+                };
 
-  <footer>
-    <p>© 2026 MNR Tunnel Pro. جميع الحقوق محفوظة.</p>
-    <p>أفضل تطبيق VPN مجاني لنظام Android — برعاية <a href="https://t.me/mounir_el" target="_blank">MOUNIR_EL</a></p>
-  </footer>
-  
-  <script>
-    // كود زر العودة إلى الأعلى
-    let mybutton = document.getElementById("scrollTopBtn");
-    window.onscroll = function() {scrollFunction()};
-    function scrollFunction() {
-      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        mybutton.style.display = "block";
-      } else {
-        mybutton.style.display = "none";
-      }
-    }
-    mybutton.addEventListener("click", function() {
-      document.body.scrollTop = 0; // For Safari
-      document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-    });
-  </script>
+                status.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500"></span> الرابط جاهز! تم توليد ' + configs.length + ' إعداد.';
+                renderCards();
+            } catch (e) {
+                status.innerHTML = '<span class="w-2 h-2 rounded-full bg-red-500"></span> الرابط غير صالح!';
+            }
+        }
 
+        function renderCards() {
+            const grid = document.getElementById('networksGrid');
+            grid.innerHTML = configs.map((net, index) => {
+                const finalSni = net.sni === 'host' ? serverData.originalHost : net.sni;
+                const vless = `vless://${serverData.uuid}@${net.addr}:${serverData.port}?path=${encodeURIComponent(serverData.path)}&security=tls&encryption=none&host=${serverData.originalHost}&type=ws&sni=${finalSni}#${net.name.replace(/ /g, "_")}`;
+
+                return `
+                    <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h3 class="font-bold text-lg text-white">${net.name}</h3>
+                                <span class="badge bg-${net.color}-500/20 text-${net.color}-400">${net.color}</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-4 font-mono break-all opacity-60">${net.addr}</p>
+                        </div>
+                        <button onclick="copyToClipboard('${vless}', this)" 
+                            class="btn-copy w-full py-3 bg-slate-700 hover:bg-blue-600 text-white rounded-xl flex items-center justify-center gap-2 font-bold transition-all">
+                            <i class="fas fa-copy"></i> نسخ الإعدادات
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function copyToClipboard(text, btn) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+                btn.classList.replace('bg-slate-700', 'bg-emerald-600');
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.classList.replace('bg-emerald-600', 'bg-slate-700');
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
