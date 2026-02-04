@@ -3,132 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MnrTunnel | Multi-Network Dashboard</title>
+    <title>MnrTunnel | Pro Generator</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
-        body { font-family: 'Tajawal', sans-serif; background: #0f172a; color: #f8fafc; }
-        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease; }
-        .glass-card:hover { transform: translateY(-5px); border-color: #38bdf8; }
-        .input-gradient { background: linear-gradient(90deg, #1e293b, #334155); }
-        .btn-copy { transition: all 0.2s; position: relative; overflow: hidden; }
-        .btn-copy:active { transform: scale(0.95); }
-        .badge { font-size: 0.65rem; padding: 2px 8px; border-radius: 20px; text-transform: uppercase; }
+        body { font-family: 'Tajawal', sans-serif; background: #0f172a; color: #f8fafc; display: flex; flex-direction: column; min-height: 100vh; }
+        .sidebar { transition: all 0.3s ease; transform: translateX(100%); }
+        .sidebar.active { transform: translateX(0); }
+        .glass-card { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+        .tab-active { background: #2563eb !important; color: white !important; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.4); }
+        .main-content { flex: 1; }
+        input::placeholder { color: #475569; opacity: 0.7; }
     </style>
 </head>
-<body class="p-4 md:p-10">
+<body class="bg-slate-950">
 
-    <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400 mb-2">HAMO EAGLE Dashboard [GCP]</h1>
-            <p class="text-slate-400">أدخل رابط السيرفر الأساسي وسيتم توليد جميع إعدادات الشبكات تلقائياً</p>
+    <div id="sidebar" class="fixed top-0 right-0 h-full w-64 bg-slate-900 shadow-2xl z-50 sidebar border-l border-slate-800">
+        <div class="p-6">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-xl font-bold text-blue-400">القائمة</h2>
+                <button onclick="toggleSidebar()" class="text-slate-400"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            <nav class="space-y-4">
+                <a href="https://t.me/mounir_el" target="_blank" class="p-3 rounded-lg flex items-center gap-3 hover:bg-slate-800 transition-all text-inherit no-underline">
+                    <i class="fab fa-telegram text-sky-500 text-xl"></i>
+                    <span>Telegram Admin</span>
+                </a>
+                <div class="p-3 border-t border-slate-800 mt-4 pt-4">
+                    <p class="text-xs text-slate-500 uppercase tracking-widest font-bold mb-2">البروتوكولات</p>
+                    <div class="flex items-center gap-2 text-emerald-400">
+                        <i class="fas fa-check-circle"></i>
+                        <span class="text-sm">VLESS WS TLS</span>
+                    </div>
+                </div>
+            </nav>
         </div>
-
-        <div class="glass-card p-8 rounded-3xl shadow-2xl mb-12">
-            <label class="block text-sm font-bold text-blue-400 mb-3 tracking-widest">SERVER CONFIGURATION (VLESS)</label>
-            <div class="relative">
-                <input type="text" id="mainLink" 
-                    placeholder="vless://uuid@your-server.run.app:443?path=%2F..." 
-                    class="w-full p-4 pr-12 rounded-2xl input-gradient border border-slate-700 focus:ring-2 focus:ring-blue-500 outline-none text-white transition-all"
-                    oninput="generateAll()">
-                <i class="fas fa-server absolute left-4 top-4 text-blue-500"></i>
-            </div>
-            <div id="status" class="mt-3 text-sm text-slate-500 flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-slate-600"></span> في انتظار الرابط...
-            </div>
-        </div>
-
-        <div id="networksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            </div>
-
-        <footer class="text-center mt-20 text-slate-500 text-sm border-t border-slate-800 pt-8">
-            MNR System &copy; 2026 | BY MOUNIR_EL
-        </footer>
     </div>
 
+    <div class="main-content">
+        <header class="p-4 glass-card sticky top-0 z-40 flex justify-between items-center px-6 border-b border-slate-800">
+            <div class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-700 rounded-xl flex items-center justify-center font-bold shadow-lg">M</div>
+                <span class="text-xl font-bold tracking-tighter text-white">MnrTunnel</span>
+            </div>
+            <button onclick="toggleSidebar()" class="p-2 hover:bg-slate-800 rounded-lg transition-colors group">
+                <i class="fas fa-bars text-xl text-white group-hover:text-blue-400"></i>
+            </button>
+        </header>
+
+        <div class="max-w-6xl mx-auto p-6">
+            <div class="mb-10 text-center">
+                <h1 class="text-3xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">توليد الإعدادات الذكي</h1>
+                
+                <div class="flex gap-2 p-1.5 bg-slate-900 rounded-2xl max-w-md mx-auto mb-10 shadow-inner border border-slate-800">
+                    <button id="btnGCP" onclick="switchTab('GCP')" class="flex-1 py-2.5 rounded-xl text-slate-400 font-bold transition-all uppercase text-sm">GCP (Global)</button>
+                    <button id="btnVLESS" onclick="switchTab('VLESS')" class="flex-1 py-2.5 rounded-xl text-slate-400 font-bold transition-all uppercase text-sm">VLESS (MENA)</button>
+                </div>
+
+                <div class="glass-card p-8 rounded-3xl text-right shadow-2xl border-t border-blue-500/20">
+                    <label class="block text-xs font-bold text-blue-400 mb-3 uppercase tracking-widest">الصق رابط السيرفر هنا (VLESS Link)</label>
+                    <div class="relative">
+                        <input type="text" id="mainLink" 
+                            placeholder="vless://a22f...@[host]:443?path=%2F..." 
+                            class="w-full p-4 pr-12 rounded-2xl bg-slate-950 border border-slate-800 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all font-mono text-sm text-white text-left"
+                            dir="ltr"
+                            oninput="generateAll()">
+                        <i class="fas fa-bolt absolute right-4 top-4 text-blue-500/50"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div id="networksGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                </div>
+        </div>
+    </div>
+
+    <footer class="mt-20 py-10 border-t border-slate-900 bg-slate-950 text-center">
+        <div class="flex flex-col items-center gap-3">
+            <p class="text-slate-500 font-bold tracking-[0.3em] text-xs uppercase">
+                BY <span class="text-blue-500">MOUNIR_EL</span> 2026
+            </p>
+            <div class="flex gap-6 mt-2">
+                <a href="https://t.me/mounir_el" class="text-slate-600 hover:text-sky-400 transition-all hover:scale-110"><i class="fab fa-telegram-plane text-2xl"></i></a>
+            </div>
+        </div>
+    </footer>
+
     <script>
-        const configs = [
-            { name: "Ooredoo ALG", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", color: "red" },
-            { name: "Snapchat All", addr: "app.snapchat.com", sni: "app.snapchat.com", color: "yellow" },
-            { name: "KSA Mobily 60 SR", addr: "c.tenor.com", sni: "c.tenor.com", color: "blue" },
-            { name: "KSA Mobily 30 SR MAP", addr: "maps.gstatic.com", sni: "maps.gstatic.com", color: "blue" },
-            { name: "KSA Mobily Free Unblock", addr: "wa-in-f120.1e100.net", sni: "wa-in-f120.1e100.net", color: "blue" },
-            { name: "KSA Mobily Mashawir 30", addr: "maps.gstatic.com", sni: "maps.gstatic.com", color: "blue" },
-            { name: "KSA Zain Free", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", color: "emerald" },
-            { name: "KSA Mobily Social", addr: "maps.gstatic.com", sni: "maps.gstatic.com", color: "blue" },
-            { name: "SUD Zain FREE", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", color: "emerald" },
-            { name: "SUD All Sim FREE", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", color: "slate" },
-            { name: "Iraq All Sim Free", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", color: "slate" },
-            { name: "Congo Orange 1", addr: "216.58.212.131", sni: "host", color: "orange" },
-            { name: "Congo Orange 2", addr: "172.217.17.134", sni: "yt3.ggpht.com", color: "orange" },
-            { name: "Kenya Airtel Unlim", addr: "m.googleapis.com", sni: "m.googleapis.com", color: "red" },
-            { name: "Kenya YouTube Bypass", addr: "android.googleapis.com", sni: "android.googleapis.com", color: "red" },
-            { name: "Kenya WiFi Bypass", addr: "android.googleapis.com", sni: "android.googleapis.com", color: "indigo" }
+        let currentTab = 'GCP';
+
+        const gcpConfigs = [
+            { name: "Ooredoo ALG", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", host: "host" },
+            { name: "All Snapchat", addr: "app.snapchat.com", sni: "app.snapchat.com", host: "host" },
+            { name: "KSA Mobily 60 SR", addr: "c.tenor.com", sni: "c.tenor.com", host: "host" },
+            { name: "KSA Mobily 30 SR MAP", addr: "maps.gstatic.com", sni: "maps.gstatic.com", host: "host" },
+            { name: "KSA Mobily Free Unblock", addr: "wa-in-f120.1e100.net", sni: "wa-in-f120.1e100.net", host: "host" },
+            { name: "KSA Mobily Mashawir 30", addr: "maps.gstatic.com", sni: "maps.gstatic.com", host: "host" },
+            { name: "KSA Zain Free", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", host: "host" },
+            { name: "KSA Mobily Social", addr: "maps.gstatic.com", sni: "maps.gstatic.com", host: "host" },
+            { name: "SUD Zain FREE", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", host: "host" },
+            { name: "SUD All Sim FREE", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", host: "host" },
+            { name: "Iraq All Sim Free", addr: "yt3.ggpht.com", sni: "yt3.ggpht.com", host: "host" },
+            { name: "CONGO ORANGE 1", addr: "216.58.212.131", sni: "host", host: "host" },
+            { name: "CONGO ORANGE 2", addr: "172.217.17.134", sni: "yt3.ggpht.com", host: "host" },
+            { name: "KENYA AIRTEL UNLIMITED", addr: "m.googleapis.com", sni: "m.googleapis.com", host: "host" },
+            { name: "KENYA YOUTUBE BYPASS", addr: "android.googleapis.com", sni: "android.googleapis.com", host: "host" },
+            { name: "KENYA WIFI BYPASS", addr: "android.googleapis.com", sni: "android.googleapis.com", host: "host" }
         ];
 
-        let serverData = null;
+        const vlessConfigs = [
+            { name: "MA | IAM 🌟 6 IP 10 1", addr: "jf-t.x.com", sni: "jf-t.x.com", host: "" },
+            { name: "MA | IAM 🌟 6 IP 10 2", addr: "cloudapi.snap.com", sni: "host", host: "host" },
+            { name: "MA | IAM 🌟 6 IP 10 3", addr: "business.x.com", sni: "host", host: "host" },
+            { name: "EGY | ETISALAT Business", addr: "host", sni: "v.whatsapp.net", host: "v.whatsapp.net" },
+            { name: "KSA | STC FREE", addr: "172.65.90.47", sni: "host", host: "host" },
+            { name: "KSA | Zain FREE", addr: "www.secure5gw.ro", sni: "host", host: "host" },
+            { name: "KSA | ZAIN NX2", addr: "host", sni: "ir.netflix.com", host: "ir.netflix.com" },
+            { name: "KSA | ZAIN Y25", addr: "host", sni: "www.youtube.com", host: "www.youtube.com" },
+            { name: "KSA | Jawwy Free", addr: "104.16.120.28", sni: "host", host: "host" },
+            { name: "KSA | Yaqoot FREE", addr: "104.16.6.253", sni: "host", host: "host" }
+        ];
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.getElementById('btnGCP').classList.toggle('tab-active', tab === 'GCP');
+            document.getElementById('btnVLESS').classList.toggle('tab-active', tab === 'VLESS');
+            generateAll();
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
 
         function generateAll() {
             const raw = document.getElementById('mainLink').value.trim();
             const grid = document.getElementById('networksGrid');
-            const status = document.getElementById('status');
-            
-            if (!raw) {
-                grid.innerHTML = "";
-                status.innerHTML = '<span class="w-2 h-2 rounded-full bg-slate-600"></span> في انتظار الرابط...';
-                return;
-            }
+            if (!raw) { grid.innerHTML = ""; return; }
 
             try {
                 const url = new URL(raw);
                 const params = new URLSearchParams(url.search);
-                serverData = {
+                const serverData = {
                     uuid: url.username,
                     originalHost: params.get('host') || url.hostname,
                     path: params.get('path') || '/',
                     port: url.port || 443
                 };
 
-                status.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500"></span> الرابط جاهز! تم توليد ' + configs.length + ' إعداد.';
-                renderCards();
-            } catch (e) {
-                status.innerHTML = '<span class="w-2 h-2 rounded-full bg-red-500"></span> الرابط غير صالح!';
-            }
-        }
+                const activeList = currentTab === 'GCP' ? gcpConfigs : vlessConfigs;
 
-        function renderCards() {
-            const grid = document.getElementById('networksGrid');
-            grid.innerHTML = configs.map((net, index) => {
-                const finalSni = net.sni === 'host' ? serverData.originalHost : net.sni;
-                const vless = `vless://${serverData.uuid}@${net.addr}:${serverData.port}?path=${encodeURIComponent(serverData.path)}&security=tls&encryption=none&host=${serverData.originalHost}&type=ws&sni=${finalSni}#${net.name.replace(/ /g, "_")}`;
+                grid.innerHTML = activeList.map(net => {
+                    const finalAddr = net.addr === 'host' ? serverData.originalHost : net.addr;
+                    const finalSni = net.sni === 'host' ? serverData.originalHost : net.sni;
+                    const finalHost = net.host === 'host' ? serverData.originalHost : (net.host || serverData.originalHost);
 
-                return `
-                    <div class="glass-card p-6 rounded-2xl flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="font-bold text-lg text-white">${net.name}</h3>
-                                <span class="badge bg-${net.color}-500/20 text-${net.color}-400">${net.color}</span>
+                    const vless = `vless://${serverData.uuid}@${finalAddr}:${serverData.port}?path=${encodeURIComponent(serverData.path)}&security=tls&encryption=none&host=${finalHost}&type=ws&sni=${finalSni}#${net.name.replace(/ /g, "_")}`;
+                    
+                    return `
+                        <div class="glass-card p-6 rounded-3xl flex flex-col justify-between border-b-2 border-transparent hover:border-blue-500 hover:bg-slate-800/40 transition-all duration-300 group shadow-lg">
+                            <div class="mb-5 text-right">
+                                <h3 class="font-bold text-white text-lg group-hover:text-blue-400 transition-colors">${net.name}</h3>
+                                <div class="flex items-center gap-2 mt-2 opacity-50">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                    <p class="text-[10px] text-slate-400 font-mono tracking-tighter uppercase">${finalAddr}</p>
+                                </div>
                             </div>
-                            <p class="text-xs text-slate-500 mb-4 font-mono break-all opacity-60">${net.addr}</p>
+                            <button onclick="copyToClipboard('${vless}', this)" 
+                                class="w-full py-3.5 bg-slate-900/50 hover:bg-blue-600 text-blue-400 hover:text-white rounded-2xl text-sm font-bold transition-all border border-slate-800 flex items-center justify-center gap-2">
+                                <i class="fas fa-copy text-xs"></i> نسخ الإعداد
+                            </button>
                         </div>
-                        <button onclick="copyToClipboard('${vless}', this)" 
-                            class="btn-copy w-full py-3 bg-slate-700 hover:bg-blue-600 text-white rounded-xl flex items-center justify-center gap-2 font-bold transition-all">
-                            <i class="fas fa-copy"></i> نسخ الإعدادات
-                        </button>
-                    </div>
-                `;
-            }).join('');
+                    `;
+                }).join('');
+            } catch (e) { }
         }
 
         function copyToClipboard(text, btn) {
             navigator.clipboard.writeText(text).then(() => {
-                const originalContent = btn.innerHTML;
+                const original = btn.innerHTML;
                 btn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
-                btn.classList.replace('bg-slate-700', 'bg-emerald-600');
+                btn.classList.add('bg-emerald-600', 'text-white', 'border-emerald-500');
                 setTimeout(() => {
-                    btn.innerHTML = originalContent;
-                    btn.classList.replace('bg-emerald-600', 'bg-slate-700');
+                    btn.innerHTML = original;
+                    btn.classList.remove('bg-emerald-600', 'text-white', 'border-emerald-500');
                 }, 2000);
             });
         }
